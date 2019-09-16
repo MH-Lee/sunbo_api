@@ -7,11 +7,27 @@ from information.choice.choice_dic import (
     )
 
 # Create your models here.
-class em01(models.Model):
-    com_code = models.CharField(max_length=6, verbose_name="업체코드")
-    br_no = models.CharField(max_length=10, verbose_name="사업자번호")
+class CompanyCode(models.Model):
+    com_code = models.CharField(max_length=6, primary_key=True, verbose_name="업체코드")
+    br_no = models.CharField(max_length=10, blank=True, null=True, verbose_name="사업자번호")
+    com_name = models.CharField(max_length=100, blank=True, null=True, verbose_name='한글업체명')
     cor_no = models.CharField(max_length=13, blank=True, null=True,\
                               verbose_name="법인번호")
+    market_code = models.CharField(max_length=1, choices=MARKET_CODE,\
+                                   blank=True, null=True, verbose_name='상장시장구분코드')
+
+    def __str__(self):
+        return '{}-{}'.format(self.com_code, self.com_name)
+
+    class Meta:
+        db_table = 'Compnay Code'
+        verbose_name = '업체코드'
+        verbose_name_plural = '업체코드'
+
+
+class EM01(models.Model):
+    com_code =  models.ForeignKey('CompanyCode', on_delete=models.CASCADE,
+                                    related_name='em01_code', verbose_name='업체코드')
     com_status = models.CharField(max_length=2, choices=STATUS,\
                                   blank=True, null=True,
                                   verbose_name="기업자료상태구분코드")
@@ -20,8 +36,6 @@ class em01(models.Model):
     com_size = models.CharField(max_length=1, blank=True, null=True,\
                                 verbose_name='기업규모구분코드')
     com_detail = models.CharField(max_length=3, blank=True, null=True)
-    market_code = models.CharField(max_length=1, choices=MARKET_CODE,\
-                                   blank=True, null=True, verbose_name='상장시장구분코드')
     issues_admin = models.CharField(max_length=1, choices=ISSUES_ADMIN,\
                                    blank=True, null=True, verbose_name='관리종목여부')
     ext_audit = models.CharField(max_length=1, choices=EXTERNAL_AUDIT,\
@@ -35,7 +49,6 @@ class em01(models.Model):
     established_date = models.CharField(max_length=8, blank=True, null=True,\
                                         verbose_name='설립일')
     no_employee = models.IntegerField(blank=True, null=True, verbose_name='종업원수')
-    com_name_ko = models.CharField(max_length=100, blank=True, null=True, verbose_name='한글업체명')
     com_name_en = models.CharField(max_length=100, blank=True, null=True, verbose_name='영문업체명')
     com_abbreviation = models.CharField(max_length=100, blank=True, null=True, verbose_name='약식업체명')
     ceo_name = models.CharField(max_length=70, blank=True, null=True, verbose_name='한글대표자명')
@@ -51,7 +64,7 @@ class em01(models.Model):
     com_email = models.CharField(max_length=100, blank=True, null=True, verbose_name='이메일')
 
     def __str__(self):
-        return '{}-{} CEO: {}'.format(self.com_code, self.com_name_ko, self.ceo_name)
+        return '{}-{} CEO: {}'.format(self.com_code, self.com_abbreviation, self.ceo_name)
 
     class Meta:
         db_table = 'em01'
@@ -59,8 +72,9 @@ class em01(models.Model):
         verbose_name_plural = '업체개요'
 
 
-class aa06(models.Model):
-    com_code =  models.ForeignKey('em01', on_delete=models.CASCADE, verbose_name='업체코드')
+class AA06(models.Model):
+    com_code =  models.ForeignKey('CompanyCode', on_delete=models.CASCADE,
+                                   related_name='aa06_code', verbose_name='업체코드')
     date = models.CharField(max_length=8, blank=True, null=True, verbose_name='기준일자')
     serial_no = models.CharField(max_length=4, blank=True, null=True, verbose_name='일련번호')
     stock_type = models.CharField(max_length=1, choices=STOCK_TYPE, blank=True, null=True, verbose_name='주식구분')
@@ -80,8 +94,9 @@ class aa06(models.Model):
         verbose_name_plural = '주요주주'
 
 
-class aa22(models.Model):
-    com_code = models.ForeignKey('em01', on_delete=models.CASCADE, verbose_name='업체코드')
+class AA22(models.Model):
+    com_code = models.ForeignKey('CompanyCode', on_delete=models.CASCADE,
+                                  related_name='aa22_code', verbose_name='업체코드')
     date = models.CharField(max_length=8, blank=True, null=True, verbose_name='기준일자')
     serial_no = models.CharField(max_length=4, blank=True, null=True, verbose_name='일련번호')
     settlement = models.CharField(max_length=1, choices=SETTLEMENT_TYPE, blank=True, null=True, verbose_name='결산구분')
@@ -99,8 +114,9 @@ class aa22(models.Model):
         verbose_name_plural = '경영진구성'
 
 
-class ab01(models.Model):
-    com_code = models.ForeignKey('em01', on_delete=models.CASCADE, verbose_name='업체코드')
+class AB01(models.Model):
+    com_code = models.ForeignKey('CompanyCode', on_delete=models.CASCADE,
+                                  related_name='ab01_code', verbose_name='업체코드')
     settlement = models.CharField(max_length=1, choices=SETTLEMENT_TYPE2, blank=True, null=True, verbose_name='결산구분')
     date = models.CharField(max_length=8, blank=True, null=True, verbose_name='기준일자')
     rep_code = models.CharField(max_length=2, verbose_name="보고서코드")
@@ -119,8 +135,8 @@ class ab01(models.Model):
         verbose_name_plural = '재무제표'
 
 
-class ab09(models.Model):
-    rep_key = models.CharField(max_length=7, verbose_name="보고서키")
+class AB09(models.Model):
+    rep_key = models.CharField(max_length=7, primary_key=True, verbose_name="보고서키")
     rep_code = models.CharField(max_length=2, verbose_name="보고서코드")
     item_code = models.CharField(max_length=4, verbose_name="항목코드")
     item_name = models.CharField(max_length=50, blank=True, null=True, verbose_name="한글항목명")
@@ -154,8 +170,8 @@ class ab09(models.Model):
         verbose_name_plural = '계정코드'
 
 
-class ad01(models.Model):
-    com_code = models.ForeignKey('em01', on_delete=models.CASCADE, verbose_name='업체코드')
+class AD01(models.Model):
+    com_code = models.ForeignKey('CompanyCode', on_delete=models.CASCADE, verbose_name='업체코드')
     settlement = models.CharField(max_length=1, choices=SETTLEMENT_TYPE2, blank=True, null=True, verbose_name='결산구분')
     date = models.CharField(max_length=8, blank=True, null=True, verbose_name='기준일자')
     rep_code = models.CharField(max_length=2, verbose_name="보고서코드")
@@ -174,8 +190,8 @@ class ad01(models.Model):
         verbose_name_plural = '연결재무제표'
 
 
-class az06(models.Model):
-    com_code = models.ForeignKey('em01', on_delete=models.CASCADE, verbose_name='업체코드')
+class AZ06(models.Model):
+    com_code = models.ForeignKey('CompanyCode', on_delete=models.CASCADE, verbose_name='업체코드')
     cr_code = models.CharField(max_length=1, choices=CR_CODE, blank=True, null=True, verbose_name='결산구분')
     date = models.CharField(max_length=8, blank=True, null=True, verbose_name='기준일자')
 

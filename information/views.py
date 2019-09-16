@@ -5,39 +5,55 @@ from rest_framework import generics, permissions
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework import serializers
 from .models import (
-    em01, aa22, aa06,
-    ab01, ab09, ad01,
-    az06,
+    CompanyCode, EM01,
+    AA22, AA06, AB01,
+    AB09, AD01, AZ06
     )
 
 from .serializers import (
-    em01Serializer,
-    aa06Serializer,
-    aa22Serializer,
-    ab01Serializer,
-    ab09Serializer,
-    ad01Serializer,
-    az06Serializer,
+    CompanyCodeSerializer,
+    EM01Serializer,
+    AA06Serializer,
+    AA22Serializer,
+    AB01Serializer,
+    AB09Serializer,
+    AD01Serializer,
+    AZ06Serializer,
 )
 
 from utils.paginations import StandardResultPagination
 # Create your views here.
 
-
-class em01APIView(generics.ListAPIView):
-    queryset = em01.objects.all()
-    serializer_class = em01Serializer
+class CompanyCodeAPIView(generics.ListAPIView):
+    queryset = CompanyCode.objects.all()
+    serializer_class = CompanyCodeSerializer
     permission_classes = (permissions.AllowAny,)
     pagination_class = StandardResultPagination
     filter_backends = [SearchFilter, OrderingFilter]
 
     def get_queryset(self, *args, **kwargs):
-        queryset = em01.objects.all().order_by('-id')
+        queryset = CompanyCode.objects.all().order_by('-id')
+        com_code_by = self.request.GET.get('com_code')
+        mkt_by = self.request.GET.get('market_code')
+        if com_code_by:
+            queryset = queryset.filter(com_code=com_code_by)
+        if mkt_by:
+            queryset = queryset.filter(market_code=mkt_by)
+
+
+class EM01APIView(generics.ListAPIView):
+    queryset = EM01.objects.all()
+    serializer_class = EM01Serializer
+    permission_classes = (permissions.AllowAny,)
+    pagination_class = StandardResultPagination
+    filter_backends = [SearchFilter, OrderingFilter]
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = EM01.objects.all().order_by('-id')
         com_code_by = self.request.GET.get('com_code')
         com_status_by = self.request.GET.get('com_status')
         com_id_by = self.request.GET.get('com_identify')
         com_size_by = self.request.GET.get('com_size')
-        mkt_by = self.request.GET.get('market_code')
         issue_by = self.request.GET.get('issues_admin')
         ext_audit_by = self.request.GET.get('ext_audit')
         com_exist_by = self.request.GET.get('com_exist')
@@ -53,8 +69,6 @@ class em01APIView(generics.ListAPIView):
             queryset = queryset.filter(com_status=com_status_by)
         if issue_by:
             queryset = queryset.filter(issues_admin=issue_by)
-        if mkt_by:
-            queryset = queryset.filter(market_code=mkt_by)
         if ext_audit_by:
             queryset = queryset.filter(ext_audit=ext_audit)
         if com_exist_by:
@@ -66,15 +80,15 @@ class em01APIView(generics.ListAPIView):
         return queryset
 
 
-class aa06APIView(generics.ListAPIView):
-    queryset = aa06.objects.all()
-    serializer_class = aa06Serializer
+class AA06APIView(generics.ListAPIView):
+    queryset = AA06.objects.all()
+    serializer_class = AA06Serializer
     permission_classes = (permissions.AllowAny,)
     pagination_class = StandardResultPagination
     filter_backends = [SearchFilter, OrderingFilter]
 
     def get_queryset(self, *args, **kwargs):
-        queryset = aa06.objects.all().order_by('-id')
+        queryset = AA06.objects.all().order_by('-id')
         date_by = self.request.GET.get('date')
         com_code_by = self.request.GET.get('com_code')
         stock_type_by = self.request.GET.get('stock_type')
@@ -89,15 +103,15 @@ class aa06APIView(generics.ListAPIView):
             queryset = queryset.filter(settlement=settlement_by)
 
 
-class aa22APIView(generics.ListAPIView):
-    queryset = aa22.objects.all()
-    serializer_class = aa22Serializer
+class AA22APIView(generics.ListAPIView):
+    queryset = AA22.objects.all()
+    serializer_class = AA22Serializer
     permission_classes = (permissions.AllowAny,)
     pagination_class = StandardResultPagination
     filter_backends = [SearchFilter, OrderingFilter]
 
     def get_queryset(self, *args, **kwargs):
-        queryset = aa22.objects.all().order_by('-id')
+        queryset = AA22.objects.all().order_by('-id')
         date_by = self.request.GET.get('date')
         com_code_by = self.request.GET.get('com_code')
         settlement_by = self.request.GET.get('settlement')
@@ -109,15 +123,15 @@ class aa22APIView(generics.ListAPIView):
             queryset = queryset.filter(settlement=settlement_by)
 
 
-class ab01APIView(generics.ListAPIView):
-    queryset = ab01.objects.all()
-    serializer_class = ab01Serializer
+class AB01APIView(generics.ListAPIView):
+    queryset = AB01.objects.all()
+    serializer_class = AB01Serializer
     permission_classes = (permissions.AllowAny,)
     pagination_class = StandardResultPagination
     filter_backends = [SearchFilter, OrderingFilter]
 
     def get_queryset(self, *args, **kwargs):
-        queryset = ab01.objects.all().order_by('-id')
+        queryset = AB01.objects.all().order_by('-id')
         date_by = self.request.GET.get('date')
         settlement_by = self.request.GET.get('settlement')
         com_code_by = self.request.GET.get('com_code')
@@ -134,15 +148,15 @@ class ab01APIView(generics.ListAPIView):
         if item_code_by:
             queryset = queryset.filter(item_code=item_code_by)
 
-class ab09APIView(generics.ListAPIView):
-    queryset = ab09.objects.all()
-    serializer_class = ab09Serializer
+class AB09APIView(generics.ListAPIView):
+    queryset = AB09.objects.all()
+    serializer_class = AB09Serializer
     permission_classes = (permissions.AllowAny,)
     pagination_class = StandardResultPagination
     filter_backends = [SearchFilter, OrderingFilter]
 
     def get_queryset(self, *args, **kwargs):
-        queryset = ab09.objects.all().order_by('-id')
+        queryset = AB09.objects.all().order_by('-id')
         rep_code_by = self.request.GET.get('rep_code')
         item_code_by = self.request.GET.get('item_code')
         if rep_code_by:
@@ -151,15 +165,15 @@ class ab09APIView(generics.ListAPIView):
             queryset = queryset.filter(item_code=item_code_by)
 
 
-class ad01APIView(generics.ListAPIView):
-    queryset = ad01.objects.all()
-    serializer_class = ad01Serializer
+class AD01APIView(generics.ListAPIView):
+    queryset = AD01.objects.all()
+    serializer_class = AD01Serializer
     permission_classes = (permissions.AllowAny,)
     pagination_class = StandardResultPagination
     filter_backends = [SearchFilter, OrderingFilter]
 
     def get_queryset(self, *args, **kwargs):
-        queryset = ad01.objects.all().order_by('-id')
+        queryset = AD01.objects.all().order_by('-id')
         date_by = self.request.GET.get('date')
         settlement_by = self.request.GET.get('settlement')
         rep_code_by = self.request.GET.get('rep_code')
@@ -174,15 +188,15 @@ class ad01APIView(generics.ListAPIView):
             queryset = queryset.filter(item_code=item_code_by)
 
 
-class az06APIView(generics.ListAPIView):
-    queryset = az06.objects.all()
-    serializer_class = az06Serializer
+class AZ06APIView(generics.ListAPIView):
+    queryset = AZ06.objects.all()
+    serializer_class = AZ06Serializer
     permission_classes = (permissions.AllowAny,)
     pagination_class = StandardResultPagination
     filter_backends = [SearchFilter, OrderingFilter]
 
     def get_queryset(self, *args, **kwargs):
-        queryset = az06.objects.all().order_by('-id')
+        queryset = AZ06.objects.all().order_by('-id')
         date_by = self.request.GET.get('date')
         com_code_by = self.request.GET.get('com_code')
         cr_code_by = self.request.GET.get('cr_code')

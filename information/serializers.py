@@ -1,46 +1,53 @@
 from rest_framework import serializers
 from .models import (
-    em01, aa22, aa06,
-    ab01, ab09, ad01,
-    az06
+    CompanyCode, EM01,
+    AA22, AA06, AB01,
+    AB09, AD01, AZ06
     )
 
-class em01Serializer(serializers.ModelSerializer):
-    class Meta:
-        model = em01
-        fields = '__all__'
 
-class aa22Serializer(serializers.ModelSerializer):
+class CompanyCodeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = aa22
+        model = CompanyCode
         fields = '__all__'
 
 
-class aa06Serializer(serializers.ModelSerializer):
+class EM01Serializer(serializers.ModelSerializer):
     class Meta:
-        model = aa06
+        model = EM01
+        fields = '__all__'
+
+class AA22Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = AA22
         fields = '__all__'
 
 
-class ab01Serializer(serializers.ModelSerializer):
+class AA06Serializer(serializers.ModelSerializer):
     class Meta:
-        model = ab01
+        model = AA06
         fields = '__all__'
 
 
-class ab09Serializer(serializers.ModelSerializer):
+class AB01Serializer(serializers.ModelSerializer):
     class Meta:
-        model = ab09
+        model = AB01
         fields = '__all__'
 
 
-class ad01Serializer(serializers.ModelSerializer):
+class AB09Serializer(serializers.ModelSerializer):
     class Meta:
-        model = ad01
+        model = AB09
         fields = '__all__'
 
 
-class az06Serializer(serializers.ModelSerializer):
+class AD01Serializer(serializers.ModelSerializer):
     class Meta:
-        model = az06
+        model = AD01
+        fields = '__all__'
+
+
+class AZ06Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = AZ06
         fields = '__all__'

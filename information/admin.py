@@ -1,36 +1,40 @@
 from django.contrib import admin
 from .models import (
-    em01, aa22, aa06,
-    ab01, ab09, ad01,
-    az06
+    CompanyCode, EM01,
+    AA06, AA22, AB01,
+    AB09, AD01, AZ06
     )
 
 # Register your models here.
-class em01Admin(admin.ModelAdmin):
-    list_display = ('com_code', 'com_name_ko')
+class CompanyCodeAdmin(admin.ModelAdmin):
+    list_display = ('com_code', 'com_name')
 
-class aa06Admin(admin.ModelAdmin):
+class EM01Admin(admin.ModelAdmin):
+    list_display = ('com_code', 'com_abbreviation')
+
+class AA06Admin(admin.ModelAdmin):
     list_display = ('date', 'com_code')
 
-class aa22Admin(admin.ModelAdmin):
+class AA22Admin(admin.ModelAdmin):
     list_display = ('date', 'com_code')
 
-class ab01Admin(admin.ModelAdmin):
+class AB01Admin(admin.ModelAdmin):
     list_display = ('date', 'com_code')
 
-class ab09Admin(admin.ModelAdmin):
+class AB09Admin(admin.ModelAdmin):
     list_display = ('rep_key',)
 
-class ad01Admin(admin.ModelAdmin):
+class AD01Admin(admin.ModelAdmin):
     list_display = ('date', 'com_code')
 
-class az06Admin(admin.ModelAdmin):
+class AZ06Admin(admin.ModelAdmin):
     list_display = ('date', 'com_code')
 
-admin.site.register(em01, em01Admin)
-admin.site.register(aa06, aa06Admin)
-admin.site.register(aa22, aa22Admin)
-admin.site.register(ab01, ab01Admin)
-admin.site.register(ab09, ab09Admin)
-admin.site.register(ad01, ad01Admin)
-admin.site.register(az06, az06Admin)
+admin.site.register(CompanyCode, CompanyCodeAdmin)
+admin.site.register(EM01, EM01Admin)
+admin.site.register(AA06, AA06Admin)
+admin.site.register(AA22, AA22Admin)
+admin.site.register(AB01, AB01Admin)
+admin.site.register(AB09, AB09Admin)
+admin.site.register(AD01, AD01Admin)
+admin.site.register(AZ06, AZ06Admin)

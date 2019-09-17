@@ -32,14 +32,14 @@ class CompanyCodeAPIView(generics.ListAPIView):
     filter_backends = [SearchFilter, OrderingFilter]
 
     def get_queryset(self, *args, **kwargs):
-        queryset = CompanyCode.objects.all().order_by('-id')
+        queryset = CompanyCode.objects.all().order_by('com_code')
         com_code_by = self.request.GET.get('com_code')
         mkt_by = self.request.GET.get('market_code')
         if com_code_by:
             queryset = queryset.filter(com_code=com_code_by)
         if mkt_by:
             queryset = queryset.filter(market_code=mkt_by)
-
+        return queryset
 
 class EM01APIView(generics.ListAPIView):
     queryset = EM01.objects.all()
@@ -101,7 +101,7 @@ class AA06APIView(generics.ListAPIView):
             queryset = queryset.filter(stock_type=stock_type_by)
         if settlement_by:
             queryset = queryset.filter(settlement=settlement_by)
-
+        return queryset
 
 class AA22APIView(generics.ListAPIView):
     queryset = AA22.objects.all()
@@ -121,7 +121,7 @@ class AA22APIView(generics.ListAPIView):
             queryset = queryset.filter(com_code=com_code_by)
         if settlement_by:
             queryset = queryset.filter(settlement=settlement_by)
-
+        return queryset
 
 class AB01APIView(generics.ListAPIView):
     queryset = AB01.objects.all()
@@ -147,6 +147,8 @@ class AB01APIView(generics.ListAPIView):
             queryset = queryset.filter(rep_code=rep_code_by)
         if item_code_by:
             queryset = queryset.filter(item_code=item_code_by)
+        return queryset
+
 
 class AB09APIView(generics.ListAPIView):
     queryset = AB09.objects.all()
@@ -156,14 +158,14 @@ class AB09APIView(generics.ListAPIView):
     filter_backends = [SearchFilter, OrderingFilter]
 
     def get_queryset(self, *args, **kwargs):
-        queryset = AB09.objects.all().order_by('-id')
+        queryset = AB09.objects.all()
         rep_code_by = self.request.GET.get('rep_code')
         item_code_by = self.request.GET.get('item_code')
         if rep_code_by:
             queryset = queryset.filter(rep_code=rep_code_by)
         if item_code_by:
             queryset = queryset.filter(item_code=item_code_by)
-
+        return queryset
 
 class AD01APIView(generics.ListAPIView):
     queryset = AD01.objects.all()
@@ -186,7 +188,7 @@ class AD01APIView(generics.ListAPIView):
             queryset = queryset.filter(rep_code=rep_code_by)
         if item_code_by:
             queryset = queryset.filter(item_code=item_code_by)
-
+        return queryset
 
 class AZ06APIView(generics.ListAPIView):
     queryset = AZ06.objects.all()
@@ -206,3 +208,4 @@ class AZ06APIView(generics.ListAPIView):
             queryset = queryset.filter(com_code=com_code_by)
         if cr_code_by:
             queryset = queryset.filter(cr_code=cr_code_by)
+        return queryset

@@ -35,10 +35,13 @@ class CompanyCodeAPIView(generics.ListAPIView):
         queryset = CompanyCode.objects.all().order_by('com_code')
         com_code_by = self.request.GET.get('com_code')
         mkt_by = self.request.GET.get('market_code')
+        br_by = self.request.GET.get('br_no')
         if com_code_by:
             queryset = queryset.filter(com_code=com_code_by)
         if mkt_by:
             queryset = queryset.filter(market_code=mkt_by)
+        if br_by:
+            queryset = queryset.filter(br_no=br_by)
         return queryset
 
 class EM01APIView(generics.ListAPIView):
@@ -159,8 +162,11 @@ class AB09APIView(generics.ListAPIView):
 
     def get_queryset(self, *args, **kwargs):
         queryset = AB09.objects.all()
+        rep_key_by = self.request.GET.get('rep_key')
         rep_code_by = self.request.GET.get('rep_code')
         item_code_by = self.request.GET.get('item_code')
+        if rep_key_by:
+            queryset = queryset.filter(rep_key=rep_key_by)
         if rep_code_by:
             queryset = queryset.filter(rep_code=rep_code_by)
         if item_code_by:

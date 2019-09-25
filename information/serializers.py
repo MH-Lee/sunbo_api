@@ -30,6 +30,7 @@ class AA06Serializer(serializers.ModelSerializer):
 
 
 class AB01Serializer(serializers.ModelSerializer):
+    rep_name = serializers.CharField(source='get_rep_code_display')
     class Meta:
         model = AB01
         fields = '__all__'
@@ -42,12 +43,14 @@ class AB09Serializer(serializers.ModelSerializer):
 
 
 class AD01Serializer(serializers.ModelSerializer):
+    rep_name = serializers.CharField(source='get_rep_code_display')
     class Meta:
         model = AD01
         fields = '__all__'
 
 
 class AZ06Serializer(serializers.ModelSerializer):
+    cr_name = serializers.CharField(source='get_cr_code_display')
     class Meta:
         model = AZ06
         fields = '__all__'

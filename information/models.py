@@ -3,7 +3,8 @@ from information.choice.choice_dic import (
     CLOSURE_STATUS, COMPANY_SIZE, COMPANY_EXISTENCE,
     CR_CODE, EXTERNAL_AUDIT, FINANCE_DIV, IDENTIFIY,
     ISSUES_ADMIN, MARKET_CODE, SETTLEMENT_TYPE,
-    SETTLEMENT_TYPE2, STATUS, STOCK_TYPE, USE_BINARY
+    SETTLEMENT_TYPE2, STATUS, STOCK_TYPE, USE_BINARY,
+    BS_REPORT, CLOSURE_CODE, BP_CODE,
     )
 
 # Create your models here.
@@ -72,6 +73,27 @@ class EM01(models.Model):
         verbose_name_plural = '업체개요'
 
 
+class EM02(models.Model):
+    com_code =  models.ForeignKey('CompanyCode', on_delete=models.CASCADE,\
+                                   related_name='em02_code', verbose_name='업체코드')
+    bp_code = models.CharField(max_length=2, choices=BP_CODE, blank=True, null=True, verbose_name='사업장구분코드')
+    bp_name_ko = models.CharField(max_length=200, blank=True, null=True, verbose_name='한글사업장명칭')
+    bp_name_en = models.CharField(max_length=200, blank=True, null=True, verbose_name='영문사업장명칭')
+    phone_no = models.CharField(max_length=20, blank=True, null=True, verbose_name='전화번호')
+    fax = models.CharField(max_length=20, blank=True, null=True, verbose_name='팩스번호')
+    postal_code = models.CharField(max_length=6, blank=True, null=True, verbose_name='우편번호')
+    address_ko = models.CharField(max_length=130, blank=True, null=True, verbose_name='한글사업장주소')
+    address_en = models.CharField(max_length=150, blank=True, null=True, verbose_name='영문사업장주소')
+    open_date =  models.CharField(max_length=8, blank=True, null=True, verbose_name='개업일자')
+    business_type = models.CharField(max_length=70, blank=True, null=True, verbose_name='업종명')
+    business_condition = models.CharField(max_length=70, blank=True, null=True, verbose_name='업태명')
+    closure_code = models.CharField(max_length=1, choices=CLOSURE_CODE, blank=True, null=True, verbose_name='폐업구분코드')
+    closure_date = models.CharField(max_length=8, blank=True, null=True, verbose_name='폐업일자')
+
+    def __str__(self):
+        return 'company_code: {} business_type: {}'.format(self.com_code, self.business_type)
+
+
 class AA06(models.Model):
     com_code =  models.ForeignKey('CompanyCode', on_delete=models.CASCADE,
                                    related_name='aa06_code', verbose_name='업체코드')
@@ -119,12 +141,11 @@ class AB01(models.Model):
                                   related_name='ab01_code', verbose_name='업체코드')
     settlement = models.CharField(max_length=1, choices=SETTLEMENT_TYPE2, blank=True, null=True, verbose_name='결산구분')
     date = models.CharField(max_length=8, blank=True, null=True, verbose_name='기준일자')
-    rep_code = models.CharField(max_length=2, verbose_name="보고서코드")
+    rep_code = models.CharField(max_length=2, choices=BS_REPORT, verbose_name="보고서코드")
     item_code = models.CharField(max_length=4, verbose_name="항목코드")
     price = models.IntegerField(blank=True, null=True, verbose_name="금액")
     ratio = models.FloatField(blank=True, null=True, verbose_name='구성비')
     change_rate = models.FloatField(blank=True, null=True, verbose_name='증감율')
-    rep_key = models.ForeignKey('ab09', on_delete=models.CASCADE, verbose_name='보고서키')
 
     def __str__(self):
         return 'company code: {} report: {} '.format(self.com_code, self.rep_code)
@@ -136,8 +157,7 @@ class AB01(models.Model):
 
 
 class AB09(models.Model):
-    rep_key = models.CharField(max_length=7, primary_key=True, verbose_name="보고서키")
-    rep_code = models.CharField(max_length=2, verbose_name="보고서코드")
+    rep_code = models.CharField(max_length=2, choices=BS_REPORT, verbose_name="보고서코드")
     item_code = models.CharField(max_length=4, verbose_name="항목코드")
     item_name = models.CharField(max_length=50, blank=True, null=True, verbose_name="한글항목명")
     item_name_en = models.CharField(max_length=70, blank=True, null=True, verbose_name="영어항목명")
@@ -174,12 +194,11 @@ class AD01(models.Model):
     com_code = models.ForeignKey('CompanyCode', on_delete=models.CASCADE, verbose_name='업체코드')
     settlement = models.CharField(max_length=1, choices=SETTLEMENT_TYPE2, blank=True, null=True, verbose_name='결산구분')
     date = models.CharField(max_length=8, blank=True, null=True, verbose_name='기준일자')
-    rep_code = models.CharField(max_length=2, verbose_name="보고서코드")
+    rep_code = models.CharField(max_length=2, choices=BS_REPORT, verbose_name="보고서코드")
     item_code = models.CharField(max_length=4, verbose_name="항목코드")
     price = models.IntegerField(blank=True, null=True, verbose_name="금액")
     ratio = models.FloatField(blank=True, null=True, verbose_name='구성비')
     change_rate = models.FloatField(blank=True, null=True, verbose_name='증감율')
-    rep_key = models.ForeignKey('ab09', on_delete=models.CASCADE, verbose_name='보고서키')
 
     def __str__(self):
         return 'company code: {} report: {} '.format(self.com_code, self.rep_code)

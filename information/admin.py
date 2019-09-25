@@ -22,7 +22,7 @@ class AB01Admin(admin.ModelAdmin):
     list_display = ('date', 'com_code')
 
 class AB09Admin(admin.ModelAdmin):
-    list_display = ('rep_key',)
+    list_display = ('rep_code', 'item_code', 'item_name')
 
 class AD01Admin(admin.ModelAdmin):
     list_display = ('date', 'com_code')

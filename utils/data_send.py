@@ -19,7 +19,7 @@ from information.models import (
         )
 
 list_dir = os.listdir('./utils/data/total')
-list_dir
+list_dir[2]
 # list_dir_sample = os.listdir('./utils/data/sample')
 # list_dir_sample[6]
 #
@@ -220,29 +220,31 @@ def AA06_send():
         aa06_obj.save()
     print('aa06 업로드')
 
-def AD01_send():
+def AD01_send(idx=0):
     start_time = time.time()
     data_ad01 = pd.read_csv('./utils/data/total/{}'.format(list_dir[5]), header=None, engine='python', sep='\|')
     ad01_header =  ['업체코드', '결산구분', '기준일자', '보고서코드', '항목코드', '금액', '구성비', '증감율']
+    if idx != 0:
+        data_ad01 = data_ad01.iloc[idx:]
+        print(data_ad01.iloc[0])
     data_ad01.drop(8, axis=1, inplace=True)
     data_ad01.columns = ad01_header
     data_ad01['업체코드'] = data_ad01['업체코드'].apply(lambda x: str(x).zfill(6))
     data_ad01['항목코드'] = data_ad01['항목코드'].apply(lambda x: str(x).zfill(4))
     end_time = time.time()
     print(end_time - start_time)
-    for i in range(data_ad01.shape[0]):
+    for i in list(data_ad01.index):
         if i % 1000 == 0:
             print(round(i/data_ad01.shape[0],3) *100)
         try:
             ad01_obj = AD01(com_code=CompanyCode.objects.get(com_code=data_ad01.loc[i, '업체코드'].strip()),
-                            settlement=data_ad01.loc[i, '업체코드'].strip(),
+                            settlement=data_ad01.loc[i, '결산구분'].strip(),
                             date=data_ad01.loc[i, '기준일자'],
                             rep_code=data_ad01.loc[i, '보고서코드'],
                             item_code=data_ad01.loc[i, '항목코드'],
                             price=data_ad01.loc[i, '금액'],
                             ratio=data_ad01.loc[i, '구성비'],
-                            change_rate=data_ad01.loc[i, '증감율'],
-                            rep_key=AB09.objects.get(rep_key=data_ad01.loc[i, '보고서키'].strip())
+                            change_rate=data_ad01.loc[i, '증감율']
                             )
         except Exception as e:
             print("error: ", e)
@@ -250,10 +252,44 @@ def AD01_send():
         ad01_obj.save()
     print('ad01 업로드')
 
+def AB01_send(idx=0):
+    start_time = time.time()
+    chunk_size = 2*10**5
+    ab01_data_list = list()
+    for i, chunk in enumerate(pd.read_csv('./utils/data/total/{}'.format(list_dir[2]), header=None, engine='python', chunksize=chunk_size, sep='\|')):
+        print(i)
+        data_ab01 = chunk
+        ab01_header =  ['업체코드', '결산구분', '기준일자', '보고서코드', '항목코드', '금액', '구성비', '증감율']
+        if idx != 0:
+            data_ab01 = data_ab01.iloc[idx:]
+            print(data_ab01.iloc[0])
+        data_ab01.drop(8, axis=1, inplace=True)
+        data_ab01.columns = ab01_header
+        data_ab01['업체코드'] = data_ab01['업체코드'].apply(lambda x: str(x).zfill(6))
+        data_ab01['항목코드'] = data_ab01['항목코드'].apply(lambda x: str(x).zfill(4))
+        end_time = time.time()
+        print(end_time - start_time)
+        for i in list(data_ab01.index):
+            if i % 1000 == 0:
+                print(round(i/len(list(data_ab01.index)),3) *100)
+            ab01_obj = AB01(com_code=CompanyCode.objects.get(com_code=data_ab01.loc[i, '업체코드'].strip()),
+                            settlement=data_ab01.loc[i, '결산구분'].strip(),
+                            date=data_ab01.loc[i, '기준일자'],
+                            rep_code=data_ab01.loc[i, '보고서코드'],
+                            item_code=data_ab01.loc[i, '항목코드'],
+                            price=data_ab01.loc[i, '금액'],
+                            ratio=data_ab01.loc[i, '구성비'],
+                            change_rate=data_ab01.loc[i, '증감율'])
+            ab01_data_list.append(ab01_obj)
+    AB01.objects.bulk_create(ab01_data_list)
+    print('AB01 업로드')
+
+
 if __name__ == "__main__":
     # EM01_send()
     # AB09_send()
     # AZ06_send()
     # AA22_send()
-    AD01_send()
+    # AD01_send()
     # AA06_send()
+    AB01_send()

@@ -52,6 +52,18 @@ data_ab01.drop(8, axis=1, inplace=True)
 data_ab01.columns = ab01_header
 data_ab01.to_excel('./refine_data/ab01.xlsx', index=False, encoding='cp949')
 
+# 'ad01.txt'
+dic_list[10]
+data_ad01 = pd.read_csv('./data/{}'.format(dic_list[10]), header=None, engine='python',\
+                    sep='\|',encoding='cp949', nrows=1000)
+data_ad01.head()
+ad01_header =  ['업체코드', '결산구분', '기준일자', '보고서코드', '항목코드', '금액', '구성비', '증감율']
+data_ad01.drop(8, axis=1, inplace=True)
+data_ad01.columns = ad01_header
+data_ad01['업체코드'] = data_ad01['업체코드'].apply(lambda x: str(x).zfill(6))
+data_ad01['항목코드'] = data_ad01['항목코드'].apply(lambda x: str(x).zfill(4))
+data_ad01.to_excel('./refine_data/ad01.xlsx', index=False, encoding='cp949')
+
 # 'ab09.txt'
 dic_list[5]
 data_ab09 = pd.read_csv('./data/{}'.format(dic_list[5]), header=None, engine='python',\

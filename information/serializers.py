@@ -37,6 +37,7 @@ class AB01Serializer(serializers.ModelSerializer):
 
 
 class AB09Serializer(serializers.ModelSerializer):
+    rep_name = serializers.CharField(source='get_rep_code_display')
     class Meta:
         model = AB09
         fields = '__all__'

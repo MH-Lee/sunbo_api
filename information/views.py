@@ -73,7 +73,7 @@ class EM01APIView(generics.ListAPIView):
         if issue_by:
             queryset = queryset.filter(issues_admin=issue_by)
         if ext_audit_by:
-            queryset = queryset.filter(ext_audit=ext_audit)
+            queryset = queryset.filter(ext_audit=ext_audit_by)
         if com_exist_by:
             queryset = queryset.filter(com_exist=com_exist_by)
         if fin_div_by:

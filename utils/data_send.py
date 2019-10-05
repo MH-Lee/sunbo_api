@@ -19,7 +19,7 @@ from information.models import (
         )
 
 list_dir = os.listdir('./utils/data/total')
-list_dir[2]
+# list_dir[2]
 # list_dir_sample = os.listdir('./utils/data/sample')
 # list_dir_sample[6]
 #

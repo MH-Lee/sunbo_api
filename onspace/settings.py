@@ -24,7 +24,7 @@ SECRET_KEY = 'l9&m9zn4@)qlr1ltd_+n9k6rt*u)8by@^!*4i%tvw1j4^8u_!%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-TESTING = True
+TESTING = False
 
 ALLOWED_HOSTS = []
 
@@ -86,15 +86,15 @@ if TESTING == True:
         }
     }
 else:
-    print('USING MariaDB, PRODUCTION')
+    print('USING PostgreSQL, PRODUCTION')
     DATABASES = {
         'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sunbo',
-        'USER':'root',
-        'PASSWORD':'1q2w3e4r!@',
-        'HOST':'localhost',
-        'PORT':3306,
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'sunbo',
+            'USER':'sunbo',
+            'PASSWORD':'1q2w3e4r!@',
+            'HOST':'',
+            'PORT':'',
         }
     }
 

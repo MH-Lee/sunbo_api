@@ -53,7 +53,7 @@ class EM01(models.Model):
     com_name_en = models.CharField(max_length=100, blank=True, null=True, verbose_name='영문업체명')
     com_abbreviation = models.CharField(max_length=100, blank=True, null=True, verbose_name='약식업체명')
     ceo_name = models.CharField(max_length=70, blank=True, null=True, verbose_name='한글대표자명')
-    ceo_name_en = models.CharField(max_length=100, blank=True, null=True, verbose_name='영문대표자명')
+    ceo_name_en = models.CharField(max_length=150, blank=True, null=True, verbose_name='영문대표자명')
     closure_status = models.CharField(max_length=1, choices=CLOSURE_STATUS,\
                                       blank=True, null=True, verbose_name='폐쇄여부구분코드')
     group_code = models.CharField(max_length=3, blank=True, null=True, verbose_name='그룹코드')
@@ -101,7 +101,7 @@ class AA06(models.Model):
     serial_no = models.CharField(max_length=4, blank=True, null=True, verbose_name='일련번호')
     stock_type = models.CharField(max_length=1, choices=STOCK_TYPE, blank=True, null=True, verbose_name='주식구분')
     settlement = models.CharField(max_length=1, choices=SETTLEMENT_TYPE, blank=True, null=True, verbose_name='결산구분')
-    shareholder_name = models.CharField(max_length=20, blank=True, null=True, verbose_name='주주명')
+    shareholder_name = models.CharField(max_length=30, blank=True, null=True, verbose_name='주주명')
     no_share = models.IntegerField(blank=True, null=True, verbose_name='소유주식수')
     rate_of_share = models.FloatField(blank=True, null=True, verbose_name='지분율')
     relation_owner = models.CharField(max_length=30, blank=True, null=True, verbose_name='대주주와관계')
@@ -125,7 +125,7 @@ class AA22(models.Model):
     position = models.CharField(max_length=20, blank=True, null=True, verbose_name='직위')
     name = models.CharField(max_length=20, blank=True, null=True, verbose_name='성명')
     date_birth = models.CharField(max_length=20, blank=True, null=True, verbose_name='생년월일')
-    recent_career = models.CharField(max_length=20, blank=True, null=True, verbose_name='최근경력')
+    recent_career = models.CharField(max_length=60, blank=True, null=True, verbose_name='최근경력')
 
     def __str__(self):
         return 'date: {} company_code: {} name: : {} position: {}'.format(self.date, self.com_code, self.name, self.position)
@@ -160,7 +160,7 @@ class AB09(models.Model):
     rep_code = models.CharField(max_length=2, choices=BS_REPORT, verbose_name="보고서코드")
     item_code = models.CharField(max_length=4, verbose_name="항목코드")
     item_name = models.CharField(max_length=50, blank=True, null=True, verbose_name="한글항목명")
-    item_name_en = models.CharField(max_length=70, blank=True, null=True, verbose_name="영어항목명")
+    item_name_en = models.CharField(max_length=80, blank=True, null=True, verbose_name="영어항목명")
     use_finance = models.CharField(max_length=1, blank=True, null=True,
                                     choices=USE_BINARY, verbose_name="재무전체사용여부")
     order_finance = models.IntegerField(blank=True, null=True, verbose_name="재무전체사용순서")
@@ -211,7 +211,7 @@ class AD01(models.Model):
 
 class AZ06(models.Model):
     com_code = models.ForeignKey('CompanyCode', on_delete=models.CASCADE, verbose_name='업체코드')
-    cr_code = models.CharField(max_length=1, choices=CR_CODE, blank=True, null=True, verbose_name='결산구분')
+    cr_code = models.CharField(max_length=2, choices=CR_CODE, blank=True, null=True, verbose_name='결산구분')
     date = models.CharField(max_length=8, blank=True, null=True, verbose_name='기준일자')
 
     def __str__(self):

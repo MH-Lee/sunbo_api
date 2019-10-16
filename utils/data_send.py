@@ -31,7 +31,7 @@ def EM01_send(chunk_id=0):
     for idx, chunk in enumerate(pd.read_csv('./utils/data/total/{}'.format(list_dir[7]), header=None, engine='python', chunksize=chunk_size, sep='\|', encoding='cp949')):
         print("%s 번쪠 Chunk" % idx)
         start_time = time.time()
-        com_code_list = list()
+        # com_code_list = list()
         em01_data_list = list()
         if int(idx) < chunk_id:
             print("{} is pass".format(idx))
@@ -68,7 +68,7 @@ def EM01_send(chunk_id=0):
                                     com_name=com_name,
                                     cor_no=cor_no,
                                     market_code=market_code)
-            com_code_list.append(ccode_obj)
+            # com_code_list.append(ccode_obj)
             com_status = str(data_em01.loc[i, '기업자료상태구분코드']).strip()
             com_identify = str(data_em01.loc[i, '기업주체구분코드']).strip()
             com_size = str(data_em01.loc[i, '기업규모구분코드']).strip()
@@ -78,7 +78,7 @@ def EM01_send(chunk_id=0):
             com_exist = str(data_em01.loc[i, '기업존속여부']).strip()
             fin_div = str(data_em01.loc[i, '재무구분코드']).strip()
             settlement_month = str(data_em01.loc[i, '결산월']).strip()
-            established_date = str(data_em01.loc[i, '업체코드']).strip()
+            established_date = str(data_em01.loc[i, '설립일']).strip()
             try:
                 no_employee = int(str(data_em01.loc[i, '종업원수']).strip())
             except ValueError:
@@ -126,8 +126,8 @@ def EM01_send(chunk_id=0):
                             com_email=com_email
                             )
             em01_data_list.append(em01_obj)
-        CompanyCode.objects.bulk_create(com_code_list)
-        print("%s번째 CompanyCode" % idx)
+        # CompanyCode.objects.bulk_create(com_code_list)
+        # print("%s번째 CompanyCode" % idx)
         EM01.objects.bulk_create(em01_data_list)
         print("%s번째 EM01" % idx)
     end_time = time.time()
@@ -194,7 +194,7 @@ def AZ06_send():
 
 def AA22_send():
     chunk_size = 2*10**5
-    for idx, chunk in enumerate(pd.read_csv('./utils/data/total/{}'.format(list_dir[1]), header=None, engine='python', chunksize=chunk_size, sep='\|', encoding='cp949')):
+    for idx, chunk in enumerate(pd.read_csv('./utils/data/total/{}'.format(list_dir[1]), header=None, engine='python', chunksize=chunk_size, sep='\|')):
         print("%s 번쪠 Chunk" % idx)
         data_aa22 =chunk
         aa22_data_list = list()
@@ -221,48 +221,53 @@ def AA22_send():
         AA22.objects.bulk_create(aa22_data_list)
     print('aa22 업로드')
 
-def AA06_send():
+def AA06_send(chunk_id=0):
+    chunk_size = 2*10**5
     start_time = time.time()
-    aa06_data_list = list()
-    data_aa06 = pd.read_csv('./utils/data/total/{}'.format(list_dir[0]), header=None, engine='python',\
-                        sep='\|',encoding='cp949')
-    aa06_header = ['업체코드', '기준일자', '일련번호','주식구분', '결산구분', '주주명', \
-                   '소유주식수', '지분율', '대주주와의 관계', '회사와의 관계']
-    data_aa06.drop(10, axis=1, inplace=True)
-    data_aa06.columns = aa06_header
-    data_aa06['업체코드'] = data_aa06['업체코드'].apply(lambda x: str(x).zfill(6))
-    data_aa06['일련번호'] = data_aa06['일련번호'].apply(lambda x: str(x).zfill(4))
-    end_time = time.time()
-    print(end_time - start_time)
-    for i in range(data_aa06.shape[0]):
-        if i % 1000 == 0:
-            print(round(i/data_aa06.shape[0],3) *100)
-        aa06_obj = AA06(com_code=CompanyCode.objects.get(com_code=data_aa06.loc[i, '업체코드'].strip()),
-                        date=data_aa06.loc[i, '기준일자'],
-                        serial_no=data_aa06.loc[i, '일련번호'],
-                        stock_type=data_aa06.loc[i, '주식구분'],
-                        settlement=data_aa06.loc[i, '결산구분'],
-                        shareholder_name=data_aa06.loc[i, '주주명'].strip(),
-                        no_share=data_aa06.loc[i, '소유주식수'],
-                        rate_of_share=data_aa06.loc[i, '지분율'],
-                        relation_owner=data_aa06.loc[i, '대주주와의 관계'].strip(),
-                        relation_com=data_aa06.loc[i, '회사와의 관계'].strip()
-                        )
-        aa06_data_list.append(aa06_obj)
-    AA06.objects.bulk_create(aa06_data_list)
+    for idx, chunk in enumerate(pd.read_csv('./utils/data/total/{}'.format(list_dir[0]), header=None, engine='python', chunksize=chunk_size, sep='\|')):
+        if int(idx) < chunk_id:
+            print("{} is pass".format(idx))
+            continue
+        print("AA06 %s 번쪠 Chunk" % idx)
+        aa06_data_list = list()
+        data_aa06 = chunk
+        aa06_header = ['업체코드', '기준일자', '일련번호','주식구분', '결산구분', '주주명', \
+                        '소유주식수', '지분율', '대주주와의 관계', '회사와의 관계']
+        data_aa06.drop(10, axis=1, inplace=True)
+        data_aa06.columns = aa06_header
+        data_aa06['업체코드'] = data_aa06['업체코드'].apply(lambda x: str(x).zfill(6))
+        data_aa06['일련번호'] = data_aa06['일련번호'].apply(lambda x: str(x).zfill(4))
+        end_time = time.time()
+        print(end_time - start_time)
+        for i in list(data_aa06.index):
+            if i % 1000 == 0:
+                print(round(i/data_aa06.shape[0],3) *100)
+            aa06_obj = AA06(com_code=CompanyCode.objects.get(com_code=data_aa06.loc[i, '업체코드'].strip()),
+                            date=data_aa06.loc[i, '기준일자'],
+                            serial_no=data_aa06.loc[i, '일련번호'],
+                            stock_type=data_aa06.loc[i, '주식구분'],
+                            settlement=data_aa06.loc[i, '결산구분'],
+                            shareholder_name=data_aa06.loc[i, '주주명'].strip(),
+                            no_share=data_aa06.loc[i, '소유주식수'],
+                            rate_of_share=data_aa06.loc[i, '지분율'],
+                            relation_owner=data_aa06.loc[i, '대주주와의 관계'].strip(),
+                            relation_com=data_aa06.loc[i, '회사와의 관계'].strip()
+                            )
+            aa06_data_list.append(aa06_obj)
+        AA06.objects.bulk_create(aa06_data_list)
     print('aa06 업로드')
 
 def AD01_send(chunk_id=0):
     start_time = time.time()
     chunk_size = 2*10**5
     for idx, chunk in enumerate(pd.read_csv('./utils/data/total/{}'.format(list_dir[5]), header=None, engine='python', chunksize=chunk_size, sep='\|')):
-        print(idx)
-        ad01_data_list = list()
-        data_ad01 = chunk
-        ad01_header =  ['업체코드', '결산구분', '기준일자', '보고서코드', '항목코드', '금액', '구성비', '증감율']
         if int(idx) < chunk_id:
             print("{} is pass".format(idx))
             continue
+        print("AD01 %s 번쪠 Chunk" % idx)
+        ad01_data_list = list()
+        data_ad01 = chunk
+        ad01_header =  ['업체코드', '결산구분', '기준일자', '보고서코드', '항목코드', '금액', '구성비', '증감율']
         data_ad01.drop(8, axis=1, inplace=True)
         data_ad01.columns = ad01_header
         data_ad01['업체코드'] = data_ad01['업체코드'].apply(lambda x: str(x).zfill(6))
@@ -289,13 +294,13 @@ def AB01_send(chunk_id=0):
     chunk_size = 2*10**5
     for idx, chunk in enumerate(pd.read_csv('./utils/data/total/{}'.format(list_dir[2]), header=None, engine='python', chunksize=chunk_size, sep='\|')):
         start_time = time.time()
-        print(idx)
-        ab01_data_list = list()
-        data_ab01 = chunk
-        ab01_header =  ['업체코드', '결산구분', '기준일자', '보고서코드', '항목코드', '금액', '구성비', '증감율']
         if int(idx) < chunk_id:
             print("{} is pass".format(idx))
             continue
+        print("AB01 %s번째 청크" % idx)
+        ab01_data_list = list()
+        data_ab01 = chunk
+        ab01_header =  ['업체코드', '결산구분', '기준일자', '보고서코드', '항목코드', '금액', '구성비', '증감율']
         data_ab01.drop(8, axis=1, inplace=True)
         data_ab01.columns = ab01_header
         data_ab01['업체코드'] = data_ab01['업체코드'].apply(lambda x: str(x).zfill(6))
@@ -321,10 +326,10 @@ def AB01_send(chunk_id=0):
 
 
 if __name__ == "__main__":
-    # EM01_send()
+    EM01_send()
     # AB09_send()
     # AZ06_send()
-    AA22_send()
-    AA06_send()
-    AD01_send()
-    AB01_send()
+    # AA22_send()
+    # AA06_send()
+    # AD01_send()
+    # AB01_send(chunk_id=410)

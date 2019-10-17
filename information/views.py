@@ -237,10 +237,16 @@ class AZ06APIView(generics.ListAPIView):
     def get_queryset(self, *args, **kwargs):
         queryset = AZ06.objects.all().order_by('-id').prefetch_related('com_code')
         date_by = self.request.GET.get('date')
+        start_date_by = self.request.GET.get('start_date')
+        end_date_by = self.request.GET.get('end_date')
         com_code_by = self.request.GET.get('com_code')
         cr_code_by = self.request.GET.get('cr_code')
         if date_by:
             queryset = queryset.filter(date=date_by)
+        if start_date_by:
+            queryset = queryset.filter(date__gte=start_date_by)
+        if end_date_by:
+            queryset = queryset.filter(date__lte=end_date_by)
         if com_code_by:
             queryset = queryset.filter(com_code=com_code_by)
         if cr_code_by:

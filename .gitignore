@@ -4,3 +4,5 @@ data/
 db.sqlite3
 .pytest_cache/
 utils/date/
+venv.bat
+secrets.json

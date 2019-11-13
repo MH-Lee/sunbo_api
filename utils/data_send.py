@@ -15,10 +15,12 @@ application = get_wsgi_application()
 
 from information.models import (
         CompanyCode, EM01, AB09,
-        AA06, AA22, AB01, AD01, AZ06
+        AA06, AA22, AB01, AD01, AZ06,
+        EM02
         )
 
 list_dir = os.listdir('./utils/data/total')
+# list_dir[8]
 # list_dir[2]
 # list_dir_sample = os.listdir('./utils/data/sample')
 # list_dir_sample[6]
@@ -290,6 +292,7 @@ def AD01_send(chunk_id=0):
         print("{} chunk upload".format(idx))
     print('ad01 업로드')
 
+
 def AB01_send(chunk_id=0):
     chunk_size = 2*10**5
     for idx, chunk in enumerate(pd.read_csv('./utils/data/total/{}'.format(list_dir[2]), header=None, engine='python', chunksize=chunk_size, sep='\|')):
@@ -325,11 +328,53 @@ def AB01_send(chunk_id=0):
     print('AB01 업로드')
 
 
+def EM02_send():
+    print("EM02 start")
+    start_time = time.time()
+    company_code = pd.read_csv('./utils/data/companycode_valid.csv', encoding='cp949')
+    code_list = company_code['com_code'].tolist()
+    data_em02 = pd.read_csv('./utils/data/total/{}'.format(list_dir[8]), header=None, engine='python',\
+                            sep='\|',encoding='cp949')
+    data_em02.drop(16, axis=1, inplace=True)
+    em02_header = ['업체코드', '일련번호', '사업자번호', '사업장구분코드', '한글사업장명칭', '영문사업장명칭', '전화번호', '팩스번호', \
+                   '우편번호', '한글사업장주소', '영문사업장주소', '개업일자', '업종명', '업태명', '폐업구분코드', '폐업일자']
+    data_em02.columns = em02_header
+    data_em02 = data_em02[data_em02['업체코드'].isin(code_list)]
+    data_em02['업체코드'] = data_em02['업체코드'].apply(lambda x: str(x).zfill(6))
+    data_em02['우편번호'] = data_em02['우편번호'].apply(lambda x: str(x).zfill(5))
+    data_em02.reset_index(drop=True, inplace=True)
+    end_time = time.time()
+    em02_data_list = list()
+    print(end_time - start_time)
+    for i in list(data_em02.index):
+        if i % 1000 == 0:
+            print(round(i/len(list(data_em02.index)),3) *100)
+        em02_obj = EM02(com_code=CompanyCode.objects.get(com_code=data_em02.loc[i, '업체코드'].strip()),
+                        serial_no=data_em02.loc[i, '일련번호'],
+                        bp_code=data_em02.loc[i, '사업장구분코드'],
+                        bp_name_ko=data_em02.loc[i, '한글사업장명칭'].strip(),
+                        bp_name_en=data_em02.loc[i, '영문사업장명칭'].strip(),
+                        phone_no=data_em02.loc[i, '전화번호'].strip(),
+                        fax=data_em02.loc[i, '팩스번호'].strip(),
+                        postal_code=data_em02.loc[i, '우편번호'],
+                        address_ko=data_em02.loc[i, '한글사업장주소'].strip(),
+                        address_en=data_em02.loc[i, '영문사업장주소'].strip(),
+                        open_date=data_em02.loc[i, '개업일자'].strip(),
+                        business_type=data_em02.loc[i, '업종명'].strip(),
+                        business_condition=data_em02.loc[i, '업태명'].strip(),
+                        closure_code=data_em02.loc[i, '폐업구분코드'],
+                        closure_date=data_em02.loc[i, '폐업일자']
+                        )
+        em02_data_list.append(em02_obj)
+    EM02.objects.bulk_create(em02_data_list)
+    print('EM02 업로드')
+
 if __name__ == "__main__":
-    EM01_send()
+    # EM01_send()
     # AB09_send()
     # AZ06_send()
     # AA22_send()
     # AA06_send()
     # AD01_send()
     # AB01_send(chunk_id=410)
+    # EM02_send()

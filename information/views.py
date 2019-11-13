@@ -7,7 +7,8 @@ from rest_framework import serializers
 from .models import (
     CompanyCode, EM01,
     AA22, AA06, AB01,
-    AB09, AD01, AZ06
+    AB09, AD01, AZ06,
+    EM02,
     )
 
 from .serializers import (
@@ -19,6 +20,7 @@ from .serializers import (
     AB09Serializer,
     AD01Serializer,
     AZ06Serializer,
+    EM02Serializer
 )
 
 from utils.paginations import StandardResultPagination
@@ -56,7 +58,7 @@ class EM01APIView(generics.ListAPIView):
     filter_backends = [SearchFilter, OrderingFilter]
 
     def get_queryset(self, *args, **kwargs):
-        queryset = EM01.objects.all().order_by('-id').prefetch_related('com_code')
+        queryset = EM01.objects.all().order_by('-id').select_related('com_code')
         com_code_by = self.request.GET.get('com_code')
         com_name_by = self.request.GET.get('com_name')
         com_status_by = self.request.GET.get('com_status')
@@ -90,6 +92,41 @@ class EM01APIView(generics.ListAPIView):
         return queryset
 
 
+class EM02APIView(generics.ListAPIView):
+    serializer_class = EM02Serializer
+    permission_classes = (permissions.AllowAny,)
+    pagination_class = StandardResultPagination
+    filter_backends = [SearchFilter, OrderingFilter]
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = EM02.objects.all().order_by('-id').select_related('com_code')
+        com_code_by = self.request.GET.get('com_code')
+        bp_code_by = self.request.GET.get('bp_code')
+        bp_name_by = self.request.GET.get('bp_name_ko')
+        address_by = self.request.GET.get('address_ko')
+        business_type_by = self.request.GET.get('business_type')
+        business_condition_by = self.request.GET.get('business_condition')
+        closure_code_by = self.request.GET.get('closure_code')
+        condition = [com_code_by, bp_code_by, bp_name_by, address_by,\
+                    business_type_by, business_condition_by, closure_code_by]
+        if any(condition):
+            if com_code_by:
+                queryset = queryset.filter(com_code=com_code_by)
+            if bp_code_by:
+                queryset = queryset.filter(bp_code=bp_code_by)
+            if bp_name_by:
+                queryset = queryset.filter(bp_name_ko__icontains=bp_name_by)
+            if address_by:
+                queryset = queryset.filter(address_ko__icontains=address_by)
+            if business_type_by:
+                queryset = queryset.filter(business_type=business_type_by)
+            if business_condition_by:
+                queryset = queryset.filter(business_condition=business_condition_by)
+            if closure_code_by:
+                queryset = queryset.filter(closure_code=closure_code_by)
+        return queryset
+
+
 class AA06APIView(generics.ListAPIView):
     serializer_class = AA06Serializer
     permission_classes = (permissions.AllowAny,)
@@ -115,6 +152,31 @@ class AA06APIView(generics.ListAPIView):
                 queryset = queryset.filter(settlement=settlement_by)
         return queryset
 
+class AA06DetailAPIView(generics.ListAPIView):
+    serializer_class = AA06Serializer
+    permission_classes = (permissions.AllowAny,)
+    pagination_class = StandardResultPagination
+    filter_backends = [SearchFilter, OrderingFilter]
+
+    def get_queryset(self, *args, **kwargs):
+        com_code = self.kwargs['com_code']
+        queryset = AA06.objects.filter(com_code=com_code).order_by('-date')
+        date_by = self.request.GET.get('date')
+        com_code_by = self.request.GET.get('com_code')
+        stock_type_by = self.request.GET.get('stock_type')
+        settlement_by = self.request.GET.get('settlement')
+        condition = [date_by, com_code_by, stock_type_by, settlement_by]
+        if any(condition):
+            if date_by:
+                queryset = queryset.filter(date=date_by)
+            if com_code_by:
+                queryset = queryset.filter(com_code=com_code_by)
+            if stock_type_by:
+                queryset = queryset.filter(stock_type=stock_type_by)
+            if settlement_by:
+                queryset = queryset.filter(settlement=settlement_by)
+        return queryset
+
 class AA22APIView(generics.ListAPIView):
     serializer_class = AA22Serializer
     permission_classes = (permissions.AllowAny,)
@@ -126,27 +188,58 @@ class AA22APIView(generics.ListAPIView):
         date_by = self.request.GET.get('date')
         com_code_by = self.request.GET.get('com_code')
         settlement_by = self.request.GET.get('settlement')
-        condition = [date_by, com_code_by, settlement_by]
+        com_code_by = self.request.GET.get('com_code')
+        serial_no_by = self.request.GET.get('serial_no')
+        condition = [date_by, com_code_by, settlement_by, serial_no_by]
         if any(condition):
-            queryset = AA22.objects.all().order_by('-id').prefetch_related('com_code')
+            queryset = AA22.objects.all().order_by('-id')
             if date_by:
                 queryset = queryset.filter(date=date_by)
             if com_code_by:
                 queryset = queryset.filter(com_code=com_code_by)
             if settlement_by:
                 queryset = queryset.filter(settlement=settlement_by)
+            if serial_no_by:
+                queryset = queryset.filter(date=date_by)
+        return queryset
+
+
+class AA22DetailAPIView(generics.ListAPIView):
+    serializer_class = AA22Serializer
+    permission_classes = (permissions.AllowAny,)
+    pagination_class = StandardResultPagination
+    filter_backends = [SearchFilter, OrderingFilter]
+
+    def get_queryset(self, *args, **kwargs):
+        com_code = self.kwargs['com_code']
+        queryset = AA22.objects.filter(com_code=com_code).order_by('-date')
+        date_by = self.request.GET.get('date')
+        com_code_by = self.request.GET.get('com_code')
+        settlement_by = self.request.GET.get('settlement')
+        com_code_by = self.request.GET.get('com_code')
+        serial_no_by = self.request.GET.get('serial_no')
+        condition = [date_by, com_code_by, settlement_by, serial_no_by]
+        if any(condition):
+            if date_by:
+                queryset = queryset.filter(date=date_by)
+            if com_code_by:
+                queryset = queryset.filter(com_code=com_code_by)
+            if settlement_by:
+                queryset = queryset.filter(settlement=settlement_by)
+            if serial_no_by:
+                queryset = queryset.filter(date=date_by)
         return queryset
 
 class AB01APIView(generics.ListAPIView):
     serializer_class = AB01Serializer
     permission_classes = (permissions.AllowAny,)
     pagination_class = StandardResultPagination
-    filter_backends = [SearchFilter, OrderingFilter]
+    filter_backends = [SearchFilter]
 
     def get_queryset(self, *args, **kwargs):
         # com_list = list(EM01.objects.filter(com_status='00').filter(com_identify=1).filter(closure_status='N').values_list('com_code', flat=True))
-        # queryset = AB01.objects.filter(date__gte=20190101).filter(com_code__in=com_list).order_by('-id')
-        queryset = AB01.objects.filter(date__gte=20190101).order_by('-id')
+        # queryset = AB01.objects.filter(date__gte=20190331).order_by('-id').select_related('com_code')
+        queryset = AB01.objects.raw("SELECT * FROM public.ab01 WHERE DATE >= '20190601' ORDER BY id ASC LIMIT 10000;")
         # queryset = AB01.objects.all().order_by('-id').prefetch_related('com_code')
         date_by = self.request.GET.get('date')
         start_date_by = self.request.GET.get('start_date')
@@ -157,7 +250,7 @@ class AB01APIView(generics.ListAPIView):
         item_code_by = self.request.GET.get('item_code')
         condition = [date_by, start_date_by, end_date_by, settlement_by, com_code_by, rep_code_by, item_code_by]
         if any(condition):
-            queryset = AB01.objects.all().order_by('-id').prefetch_related('com_code')
+            queryset = AB01.objects.all().order_by('-id').select_related('com_code')
             if date_by:
                 queryset = queryset.filter(date=date_by)
             if start_date_by:
@@ -166,6 +259,38 @@ class AB01APIView(generics.ListAPIView):
                 queryset = queryset.filter(date__lte=end_date_by)
             if com_code_by:
                 queryset = queryset.filter(com_code=com_code_by)
+            if settlement_by:
+                queryset = queryset.filter(settlement=settlement_by)
+            if rep_code_by:
+                queryset = queryset.filter(rep_code=rep_code_by)
+            if item_code_by:
+                queryset = queryset.filter(item_code=item_code_by)
+        return queryset
+
+
+class AB01APIDetailView(generics.ListAPIView):
+    serializer_class = AB01Serializer
+    permission_classes = (permissions.AllowAny,)
+    pagination_class = StandardResultPagination
+    filter_backends = [SearchFilter, OrderingFilter]
+
+    def get_queryset(self, *args, **kwargs):
+        com_code = self.kwargs['com_code']
+        queryset = AB01.objects.filter(com_code=com_code).order_by('-date')
+        date_by = self.request.GET.get('date')
+        start_date_by = self.request.GET.get('start_date')
+        end_date_by = self.request.GET.get('end_date')
+        settlement_by = self.request.GET.get('settlement')
+        rep_code_by = self.request.GET.get('rep_code')
+        item_code_by = self.request.GET.get('item_code')
+        condition = [date_by, start_date_by, end_date_by, settlement_by, rep_code_by, item_code_by]
+        if any(condition):
+            if date_by:
+                queryset = queryset.filter(date=date_by)
+            if start_date_by:
+                queryset = queryset.filter(date__gte=start_date_by)
+            if end_date_by:
+                queryset = queryset.filter(date__lte=end_date_by)
             if settlement_by:
                 queryset = queryset.filter(settlement=settlement_by)
             if rep_code_by:
@@ -186,12 +311,15 @@ class AB09APIView(generics.ListAPIView):
         rep_key_by = self.request.GET.get('rep_key')
         rep_code_by = self.request.GET.get('rep_code')
         item_code_by = self.request.GET.get('item_code')
+        item_name_by = self.request.GET.get('item_name')
         if rep_key_by:
             queryset = queryset.filter(rep_key=rep_key_by)
         if rep_code_by:
             queryset = queryset.filter(rep_code=rep_code_by)
         if item_code_by:
             queryset = queryset.filter(item_code=item_code_by)
+        if item_name_by:
+            queryset = queryset.filter(item_name__icontains=item_name_by)
         return queryset
 
 
@@ -202,7 +330,7 @@ class AD01APIView(generics.ListAPIView):
     filter_backends = [SearchFilter, OrderingFilter]
 
     def get_queryset(self, *args, **kwargs):
-        queryset = AD01.objects.all().filter(date__gte=20180101).order_by('-id')
+        queryset = AD01.objects.filter(date__gte=20190101).order_by('-id')
         date_by = self.request.GET.get('date')
         start_date_by = self.request.GET.get('start_date')
         end_date_by = self.request.GET.get('end_date')
@@ -228,6 +356,38 @@ class AD01APIView(generics.ListAPIView):
         return queryset
 
 
+class AD01APIDetailView(generics.ListAPIView):
+    serializer_class = AD01Serializer
+    permission_classes = (permissions.AllowAny,)
+    pagination_class = StandardResultPagination
+    filter_backends = [SearchFilter, OrderingFilter]
+
+    def get_queryset(self, *args, **kwargs):
+        com_code = self.kwargs['com_code']
+        queryset = AD01.objects.filter(com_code=com_code).order_by('-date')
+        date_by = self.request.GET.get('date')
+        start_date_by = self.request.GET.get('start_date')
+        end_date_by = self.request.GET.get('end_date')
+        settlement_by = self.request.GET.get('settlement')
+        rep_code_by = self.request.GET.get('rep_code')
+        item_code_by = self.request.GET.get('item_code')
+        condition = [date_by, start_date_by, end_date_by, settlement_by, rep_code_by, item_code_by]
+        if any(condition):
+            if date_by:
+                queryset = queryset.filter(date=date_by)
+            if start_date_by:
+                queryset = queryset.filter(date__gte=start_date_by)
+            if end_date_by:
+                queryset = queryset.filter(date__lte=end_date_by)
+            if settlement_by:
+                queryset = queryset.filter(settlement=settlement_by)
+            if rep_code_by:
+                queryset = queryset.filter(rep_code=rep_code_by)
+            if item_code_by:
+                queryset = queryset.filter(item_code=item_code_by)
+        return queryset
+
+
 class AZ06APIView(generics.ListAPIView):
     serializer_class = AZ06Serializer
     permission_classes = (permissions.AllowAny,)
@@ -235,7 +395,7 @@ class AZ06APIView(generics.ListAPIView):
     filter_backends = [SearchFilter, OrderingFilter]
 
     def get_queryset(self, *args, **kwargs):
-        queryset = AZ06.objects.all().order_by('-id').prefetch_related('com_code')
+        queryset = AZ06.objects.all().order_by('-date')
         date_by = self.request.GET.get('date')
         start_date_by = self.request.GET.get('start_date')
         end_date_by = self.request.GET.get('end_date')

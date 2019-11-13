@@ -76,6 +76,7 @@ class EM01(models.Model):
 class EM02(models.Model):
     com_code =  models.ForeignKey('CompanyCode', on_delete=models.CASCADE,\
                                    related_name='em02_code', verbose_name='업체코드')
+    serial_no = models.CharField(max_length=4, blank=True, null=True, verbose_name='일련번호')
     bp_code = models.CharField(max_length=2, choices=BP_CODE, blank=True, null=True, verbose_name='사업장구분코드')
     bp_name_ko = models.CharField(max_length=200, blank=True, null=True, verbose_name='한글사업장명칭')
     bp_name_en = models.CharField(max_length=200, blank=True, null=True, verbose_name='영문사업장명칭')

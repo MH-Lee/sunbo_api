@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import json
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,11 +22,24 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'l9&m9zn4@)qlr1ltd_+n9k6rt*u)8by@^!*4i%tvw1j4^8u_!%'
+secret_file = os.path.join(BASE_DIR, 'secrets.json')
 
+with open(secret_file) as f:
+    secrets = json.loads(f.read())
+
+def get_secret(setting, secrets=secrets):
+    try:
+        print(secrets[setting])
+        return secrets[setting]
+    except KeyError:
+        error_msg = "set the {0} environment variable".format(setting)
+        return ImproperlyConfigured(error_msg)
+
+SECRET_KEY = get_secret("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 TESTING = False
+PRODUCTION = False
 
 ALLOWED_HOSTS = []
 
@@ -83,6 +98,18 @@ if TESTING == True:
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
+elif (TESTING == False) & (PRODUCTION == True):
+    print("deploy AWS")
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'HOST': '',
+            'PORT': '5432',
+            'NAME': '',
+            'USER': '',
+            'PASSWORD': '',
         }
     }
 else:

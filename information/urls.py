@@ -13,6 +13,6 @@ urlpatterns = [
     path('az06/', AZ06APIView.as_view(), name='az06'),
     # path('ab01/', AB01APIView.as_view(), name='ab01'),
     # path('ad01/', AD01APIView.as_view(), name='ad01'),
-    path('ab01/<com_code>/', AB01APIDetailView.as_view(), name='ab01-detail'),
-    path('ad01/<com_code>/', AD01APIDetailView.as_view(), name='ad01-detail')
+    path('ab01/<com_code>/', AD01DetailAPIView.as_view(), name='ab01-detail'),
+    path('ad01/<com_code>/', AD01DetailAPIView.as_view(), name='ad01-detail')
 ]

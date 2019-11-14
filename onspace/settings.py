@@ -101,11 +101,11 @@ if TESTING == True:
         }
     }
 elif (TESTING == False) & (PRODUCTION == True):
-    print("deploy AWS")
+    print("USING PostgreSQL deploy AWS")
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'HOST': '',
+            'HOST': 'sunbo-api.c6skzqlnh0jf.us-east-1.rds.amazonaws.com',
             'PORT': '5432',
             'NAME': '',
             'USER': '',

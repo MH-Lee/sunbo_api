@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from .views import *
 
 urlpatterns = [
@@ -16,3 +18,6 @@ urlpatterns = [
     path('ab01/<com_code>/', AD01DetailAPIView.as_view(), name='ab01-detail'),
     path('ad01/<com_code>/', AD01DetailAPIView.as_view(), name='ad01-detail')
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

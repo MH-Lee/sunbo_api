@@ -54,6 +54,7 @@ class CompanyCodeAPIView(generics.ListAPIView):
             queryset = queryset.filter(br_no=br_by)
         return queryset
 
+
 class EM01APIView(generics.ListAPIView):
     serializer_class = EM01Serializer
     permission_classes = (permissions.AllowAny,)
@@ -170,6 +171,7 @@ class AA06APIView(generics.ListAPIView):
             if settlement_by:
                 queryset = queryset.filter(settlement=settlement_by)
         return queryset
+
 
 class AA06DetailAPIView(generics.ListAPIView):
     serializer_class = AA06Serializer
@@ -350,7 +352,7 @@ class AD01APIView(generics.ListAPIView):
     filter_backends = [SearchFilter, OrderingFilter]
 
     def get_queryset(self, *args, **kwargs):
-        queryset = AD01.objects.filter(date__gte=20190101).order_by('-id')
+        queryset = AD01.objects.filter(date__gte=20190401).order_by('-id')
         date_by = self.request.GET.get('date')
         start_date_by = self.request.GET.get('start_date')
         end_date_by = self.request.GET.get('end_date')

@@ -39,9 +39,12 @@ SECRET_KEY = get_secret("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 TESTING = False
-PRODUCTION = False
+PRODUCTION = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '54.91.115.49',
+    'ec2-54-91-115-49.compute-1.amazonaws.com'
+]
 
 # Application definition
 
@@ -105,11 +108,11 @@ elif (TESTING == False) & (PRODUCTION == True):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'HOST': 'sunbo-api.c6skzqlnh0jf.us-east-1.rds.amazonaws.com',
+            'HOST': 'sunbo-rds.c6skzqlnh0jf.us-east-1.rds.amazonaws.com',
             'PORT': '5432',
-            'NAME': '',
-            'USER': '',
-            'PASSWORD': '',
+            'NAME': 'sunbo',
+            'USER': 'postgres',
+            'PASSWORD': 'swzs872912!',
         }
     }
 else:
@@ -162,6 +165,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 # https://github.com/ottoyiu/django-cors-headers
 CORS_ORIGIN_ALLOW_ALL = True # 외부에서 API 요청 가능하도록 새팅

@@ -150,6 +150,8 @@ class AA06APIView(generics.ListAPIView):
     def get_queryset(self, *args, **kwargs):
         queryset = AA06.objects.filter(date__gte=20170101).order_by('-id')
         date_by = self.request.GET.get('date')
+        start_date_by = self.request.GET.get('start_date')
+        end_date_by = self.request.GET.get('end_date')
         com_code_by = self.request.GET.get('com_code')
         com_name_by = self.request.GET.get('com_name')
         com_name_c_by = self.request.GET.get('com_name_contain')
@@ -160,6 +162,10 @@ class AA06APIView(generics.ListAPIView):
             queryset = AA06.objects.all().order_by('-id').prefetch_related('com_code')
             if date_by:
                 queryset = queryset.filter(date=date_by)
+            if start_date_by:
+                queryset = queryset.filter(date__gte=start_date_by)
+            if end_date_by:
+                queryset = queryset.filter(date__lte=end_date_by)
             if com_code_by:
                 queryset = queryset.filter(com_code=com_code_by)
             if com_name_by:
@@ -195,6 +201,7 @@ class AA06DetailAPIView(generics.ListAPIView):
                 queryset = queryset.filter(settlement=settlement_by)
         return queryset
 
+
 class AA22APIView(generics.ListAPIView):
     serializer_class = AA22Serializer
     permission_classes = (permissions.AllowAny,)
@@ -204,6 +211,8 @@ class AA22APIView(generics.ListAPIView):
     def get_queryset(self, *args, **kwargs):
         queryset = AA22.objects.filter(date__gte=20170101).order_by('-id')
         date_by = self.request.GET.get('date')
+        start_date_by = self.request.GET.get('start_date')
+        end_date_by = self.request.GET.get('end_date')
         com_code_by = self.request.GET.get('com_code')
         com_name_by = self.request.GET.get('com_name')
         com_name_c_by = self.request.GET.get('com_name_contain')
@@ -214,8 +223,16 @@ class AA22APIView(generics.ListAPIView):
             queryset = AA22.objects.all().order_by('-id')
             if date_by:
                 queryset = queryset.filter(date=date_by)
+            if start_date_by:
+                queryset = queryset.filter(date__gte=start_date_by)
+            if end_date_by:
+                queryset = queryset.filter(date__lte=end_date_by)
             if com_code_by:
                 queryset = queryset.filter(com_code=com_code_by)
+            if com_name_by:
+                queryset = queryset.filter(com_code__com_name=com_name_by)
+            if com_name_c_by:
+                queryset = queryset.filter(com_code__com_name__icontains=com_name_c_by) 
             if settlement_by:
                 queryset = queryset.filter(settlement=settlement_by)
             if serial_no_by:

@@ -43,7 +43,9 @@ PRODUCTION = True
 
 ALLOWED_HOSTS = [
     '54.91.115.49',
-    'ec2-54-91-115-49.compute-1.amazonaws.com'
+    'ec2-54-91-115-49.compute-1.amazonaws.com',
+    '127.0.0.1',
+    'localhost'
 ]
 
 # Application definition

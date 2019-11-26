@@ -346,7 +346,7 @@ class AB09APIView(generics.ListAPIView):
     filter_backends = [SearchFilter, OrderingFilter]
 
     def get_queryset(self, *args, **kwargs):
-        queryset = AB09.objects.all()
+        queryset = AB09.objects.all().order_by('rep_key')
         rep_key_by = self.request.GET.get('rep_key')
         rep_code_by = self.request.GET.get('rep_code')
         item_code_by = self.request.GET.get('item_code')

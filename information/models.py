@@ -158,6 +158,7 @@ class AB01(models.Model):
 
 
 class AB09(models.Model):
+    rep_key = models.CharField(max_length=6, primary_key=True, verbose_name="업체코드")
     rep_code = models.CharField(max_length=2, choices=BS_REPORT, verbose_name="보고서코드")
     item_code = models.CharField(max_length=4, verbose_name="항목코드")
     item_name = models.CharField(max_length=50, blank=True, null=True, verbose_name="한글항목명")

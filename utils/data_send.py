@@ -148,11 +148,15 @@ def AB09_send():
     data_ab09.drop(17, axis=1, inplace=True)
     data_ab09.columns = ab09_header
     data_ab09['항목코드'] = data_ab09['항목코드'].apply(lambda x: str(x).zfill(4))
-    data_ab09['보고서키'] = data_ab09['보고서코드'] + '_' + data_ab09['항목코드']
+    data_ab09['보고서키'] = data_ab09['보고서코드'] +  data_ab09['항목코드']
+    data_ab09.drop_duplicates('보고서키', inplace=True)
+    data_ab09.reset_index(inplace=True, drop=True)
+    print(data_ab09.shape)
     for i in range(data_ab09.shape[0]):
         if i % 1000 == 0:
             print("%.3f" % (round(i/data_ab09.shape[0],3) *100))
-        ab09_obj = AB09(rep_code=data_ab09.loc[i, '보고서코드'].strip(),
+        ab09_obj = AB09(rep_key= data_ab09.loc[i, '보고서키'].strip(),
+                        rep_code=data_ab09.loc[i, '보고서코드'].strip(),
                         item_code=data_ab09.loc[i, '항목코드'].strip(),
                         item_name=data_ab09.loc[i, '항목명(한글)'].strip(),
                         item_name_en=data_ab09.loc[i, '항목명(영문)'].strip(),
@@ -371,7 +375,7 @@ def EM02_send():
 
 if __name__ == "__main__":
     # EM01_send()
-    # AB09_send()
+    AB09_send()
     # AZ06_send()
     # AA22_send()
     # AA06_send()

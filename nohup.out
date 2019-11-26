@@ -1,0 +1,201 @@
+Watching for file changes with StatReloader
+[25/Nov/2019 05:49:24] "GET /api/v1/information/company_code/ HTTP/1.1" 200 40003
+[25/Nov/2019 05:49:25] "GET /static/rest_framework/css/prettify.css HTTP/1.1" 200 817
+[25/Nov/2019 05:49:25] "GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 200 3385
+[25/Nov/2019 05:49:25] "GET /static/rest_framework/css/default.css HTTP/1.1" 200 1131
+[25/Nov/2019 05:49:25] "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 200 121457
+[25/Nov/2019 05:49:38] "GET /api/v1/information/company_code/ HTTP/1.1" 200 12089
+[25/Nov/2019 05:49:43] "GET /api/v1/information/company_code/ HTTP/1.1" 200 40003
+[25/Nov/2019 05:49:43] "GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 200 3385
+[25/Nov/2019 05:49:43] "GET /static/rest_framework/css/prettify.css HTTP/1.1" 200 817
+[25/Nov/2019 05:49:43] "GET /static/rest_framework/css/default.css HTTP/1.1" 200 1131
+[25/Nov/2019 05:49:44] "GET /static/rest_framework/js/csrf.js HTTP/1.1" 200 1719
+[25/Nov/2019 05:49:44] "GET /static/rest_framework/js/jquery-3.4.1.min.js HTTP/1.1" 200 88145
+[25/Nov/2019 05:49:44] "GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 200 3597
+[25/Nov/2019 05:49:44] "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 200 121457
+[25/Nov/2019 05:49:44] "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 200 37608
+[25/Nov/2019 05:49:44] "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 200 13632
+[25/Nov/2019 05:49:44] "GET /static/rest_framework/js/default.js HTTP/1.1" 200 1268
+[25/Nov/2019 05:49:46] "GET /static/rest_framework/img/grid.png HTTP/1.1" 200 1458
+[25/Nov/2019 05:49:46] "GET /static/rest_framework/fonts/glyphicons-halflings-regular.woff2 HTTP/1.1" 200 18028
+Not Found: /favicon.ico
+[25/Nov/2019 05:49:47] "GET /favicon.ico HTTP/1.1" 404 2095
+[25/Nov/2019 05:50:11] "GET /api/v1/information/company_code/?com_name_contain=%EB%B0%B0%EA%B3%A0%ED%8C%8C HTTP/1.1" 200 8576
+[25/Nov/2019 05:50:18] "GET /api/v1/information/company_code/?com_name_contain=%ED%95%98%EC%9D%B4 HTTP/1.1" 200 40993
+[25/Nov/2019 05:50:40] "GET /api/v1/information/company_code/?com_name_contain=%EC%84%A0%EB%B3%B4%EC%97%94%EC%A0%A4 HTTP/1.1" 200 9032
+[25/Nov/2019 05:51:00] "GET /api/v1/information/ab01/HN8032 HTTP/1.1" 301 0
+[25/Nov/2019 05:51:00] "GET /api/v1/information/ab01/HN8032/ HTTP/1.1" 200 9263
+[25/Nov/2019 05:51:18] "GET /api/v1/information/company_code/?com_name_contain=%EB%B9%84%EB%B0%94 HTTP/1.1" 200 40587
+[25/Nov/2019 05:51:28] "GET /api/v1/information/ab01/006199 HTTP/1.1" 301 0
+[25/Nov/2019 05:51:29] "GET /api/v1/information/ab01/006199/ HTTP/1.1" 200 9263
+Not Found: /api/v1/information/ab01
+[25/Nov/2019 05:51:37] "GET /api/v1/information/ab01 HTTP/1.1" 404 4328
+[25/Nov/2019 05:51:52] "GET /api/v1/information/company_code/?com_name_contain=%EC%82%BC%EC%84%B1 HTTP/1.1" 200 40859
+[25/Nov/2019 05:52:00] "GET /api/v1/information/company_code/?com_name_contain=%EC%82%BC%EC%84%B1%EC%A0%84%EC%9E%90 HTTP/1.1" 200 35626
+[25/Nov/2019 05:52:14] "GET /api/v1/information/ad01/380725 HTTP/1.1" 301 0
+[25/Nov/2019 05:52:14] "GET /api/v1/information/ad01/380725/ HTTP/1.1" 200 60827
+[25/Nov/2019 05:54:41] "GET /api/v1/information/company_code/?com_name_contain=%EB%A6%AC%ED%8D%BC%EB%B8%94%EB%A6%AC%EC%B9%B4 HTTP/1.1" 200 9164
+[25/Nov/2019 05:55:32] "GET /api/v1/information/company_code/?com_name_contain=%EC%97%98%EC%A7%80 HTTP/1.1" 200 41248
+[25/Nov/2019 05:55:42] "GET /api/v1/information/company_code/?com_name_contain=%EC%97%98%EC%A7%80%EC%83%9D%ED%99%9C HTTP/1.1" 200 8711
+[25/Nov/2019 05:55:47] "GET /api/v1/information/company_code/?com_name_contain=%EC%97%98%EC%A7%80%ED%99%94%ED%95%99 HTTP/1.1" 200 10268
+[25/Nov/2019 05:56:05] "GET /api/v1/information/company_code/?com_name_contain=%EC%97%98%EC%A7%80&mkt_code=1 HTTP/1.1" 200 41578
+[25/Nov/2019 05:56:15] "GET /api/v1/information/company_code/?com_name_contain=%EC%97%98%EC%A7%80&market_code=1 HTTP/1.1" 200 9648
+[25/Nov/2019 05:56:26] "GET /api/v1/information/company_code/?com_name_contain=%EC%A0%84%EC%9E%90&market_code=1 HTTP/1.1" 200 13006
+[25/Nov/2019 05:56:37] "GET /api/v1/information/company_code/?com_name_contain=LG%EC%A0%84%EC%9E%90&market_code=1 HTTP/1.1" 200 9046
+[25/Nov/2019 05:56:45] "GET /api/v1/information/ab01/196275 HTTP/1.1" 301 0
+[25/Nov/2019 05:56:46] "GET /api/v1/information/ab01/196275/ HTTP/1.1" 200 60724
+[25/Nov/2019 05:56:47] "GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 200 3597
+[25/Nov/2019 05:56:47] "GET /static/rest_framework/js/csrf.js HTTP/1.1" 200 1719
+[25/Nov/2019 05:56:47] "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 200 37608
+[25/Nov/2019 05:56:47] "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 200 13632
+[25/Nov/2019 05:56:47] "GET /static/rest_framework/js/default.js HTTP/1.1" 200 1268
+[25/Nov/2019 05:56:47] "GET /static/rest_framework/js/jquery-3.4.1.min.js HTTP/1.1" 200 88145
+/home/ubuntu/sunbo_api/information/urls.py changed, reloading.
+'l9&m9zn4@)qlr1ltd_+n9k6rt*u)8by@^!*4i%tvw1j4^8u_!%'
+USING PostgreSQL deploy AWS
+Performing system checks...
+
+System check identified no issues (0 silenced).
+November 25, 2019 - 05:40:47
+Django version 2.2.7, using settings 'onspace.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Watching for file changes with StatReloader
+[25/Nov/2019 06:05:04] "GET /api/v1/information/ab01/196275/ HTTP/1.1" 200 67001
+[25/Nov/2019 06:05:18] "GET /api/v1/information/company_code/?company_code HTTP/1.1" 200 40380
+[25/Nov/2019 06:05:37] "GET /api/v1/information/company_code/?com_name_contain=%EB%B9%84%EB%B0%94%EB%A6%AC%ED%8D%BC%EB%B8%94%EB%A6%AC%EC%B9%B4 HTTP/1.1" 200 9434
+[25/Nov/2019 06:05:48] "GET /api/v1/information/ab01/J13695 HTTP/1.1" 301 0
+[25/Nov/2019 06:05:49] "GET /api/v1/information/ab01/J13695/ HTTP/1.1" 200 68286
+[25/Nov/2019 07:19:58] "GET /api/v1/information/company_code/ HTTP/1.1" 200 12089
+[26/Nov/2019 01:39:28] "GET /api/v1/information/company_code/?company_code HTTP/1.1" 200 40380
+[26/Nov/2019 01:39:29] "GET /static/rest_framework/img/grid.png HTTP/1.1" 200 1458
+[26/Nov/2019 01:39:29] "GET /static/rest_framework/fonts/glyphicons-halflings-regular.woff2 HTTP/1.1" 200 18028
+Not Found: /favicon.ico
+[26/Nov/2019 01:39:29] "GET /favicon.ico HTTP/1.1" 404 2095
+[26/Nov/2019 01:39:33] "GET /api/v1/information/company_code/?company_code=&page=2 HTTP/1.1" 200 40713
+[26/Nov/2019 01:42:45] "GET /api/v1/information/company_code/?company_code HTTP/1.1" 200 40380
+[26/Nov/2019 01:42:56] "GET /api/v1/information/em01 HTTP/1.1" 301 0
+[26/Nov/2019 01:42:58] "GET /api/v1/information/em01/ HTTP/1.1" 200 169372
+[26/Nov/2019 01:43:09] "GET /api/v1/information/em02/ HTTP/1.1" 200 126750
+Not Found: /
+[26/Nov/2019 01:44:58] "GET / HTTP/1.1" 404 2044
+[26/Nov/2019 01:57:48] "GET /api/v1/information/em01/ HTTP/1.1" 200 62423
+[26/Nov/2019 01:58:56] "GET /api/v1/information/company_code/?company_code/ HTTP/1.1" 200 12106
+[26/Nov/2019 01:59:11] "GET /api/v1/information/company_code/ HTTP/1.1" 200 40003
+[26/Nov/2019 02:06:28] "GET /api/v1/information/company_code/?com_name_contain=%EB%B9%84%EB%B0%94%EB%A6%AC%ED%8D%BC%EB%B8%94%EB%A6%AC%EC%B9%B4 HTTP/1.1" 200 9434
+[26/Nov/2019 02:15:28] "GET /api/v1/information/company_code/?company_code/?com_name_contain=%EB%B9%84%EB%B0%94%EB%A6%AC%ED%8D%BC%EB%B8%94%EB%A6%AC%EC%B9%B4 HTTP/1.1" 200 12188
+[26/Nov/2019 02:17:41] "GET /api/v1/information/company_code/?company_code/?com_name_contain=%EB%A6%AC%ED%8D%BC%EB%B8%94%EB%A6%AC%EC%B9%B4 HTTP/1.1" 200 12170
+[26/Nov/2019 02:18:01] "GET /api/v1/information/company_code/?com_name_contain=%EB%A6%AC%ED%8D%BC%EB%B8%94%EB%A6%AC%EC%B9%B4 HTTP/1.1" 200 177
+[26/Nov/2019 02:20:39] "GET /api/v1/information/em01/?com_name_contain=%EB%A6%AC%ED%8D%BC%EB%B8%94%EB%A6%AC%EC%B9%B4 HTTP/1.1" 200 720
+[26/Nov/2019 03:39:04] "GET /api/v1/information/em01/?com_name_contain=%ED%81%B4%EB%9E%98%EC%8A%A4101 HTTP/1.1" 200 640
+[26/Nov/2019 03:42:08] "GET /api/v1/information/em01 HTTP/1.1" 301 0
+[26/Nov/2019 03:42:09] "GET /api/v1/information/em01/ HTTP/1.1" 200 169372
+[26/Nov/2019 03:53:14] "GET /api/v1/information/em01/?com_status=00 HTTP/1.1" 200 170472
+[26/Nov/2019 03:53:18] "GET /api/v1/information/em01/?com_status=13 HTTP/1.1" 200 14667
+[26/Nov/2019 03:53:25] "GET /api/v1/information/em01/?com_status=12 HTTP/1.1" 200 14667
+[26/Nov/2019 03:53:32] "GET /api/v1/information/em01/?com_status=01 HTTP/1.1" 200 134784
+[26/Nov/2019 03:53:43] "GET /api/v1/information/em01/?com_status=02 HTTP/1.1" 200 34665
+[26/Nov/2019 03:53:47] "GET /api/v1/information/em01/?com_status=11 HTTP/1.1" 200 14667
+[26/Nov/2019 03:53:54] "GET /api/v1/information/em01/?com_status=03 HTTP/1.1" 200 168386
+[26/Nov/2019 05:29:16] "GET /api/v1/information/company_code/?company_code HTTP/1.1" 200 40380
+[26/Nov/2019 05:29:44] "GET /api/v1/information/company_code/ HTTP/1.1" 200 40003
+Not Found: /api/v1/information/ab01/
+[26/Nov/2019 05:30:02] "GET /api/v1/information/ab01/?com_name_cotain=%EA%B3%84%EC%A7%84%ED%91%B8%EB%93%9C%EB%86%8D%EC%97%85%ED%9A%8C%EC%82%AC%EB%B2%95%EC%9D%B8 HTTP/1.1" 404 4438
+Not Found: /api/v1/information/ab01
+[26/Nov/2019 05:30:07] "GET /api/v1/information/ab01 HTTP/1.1" 404 4328
+[26/Nov/2019 05:30:19] "GET /api/v1/information/company_code/ HTTP/1.1" 200 40003
+[26/Nov/2019 05:30:32] "GET /api/v1/information/company_code/?com_name_cotain=%EA%B3%84%EC%A7%84%ED%91%B8%EB%93%9C%EB%86%8D%EC%97%85%ED%9A%8C%EC%82%AC%EB%B2%95%EC%9D%B8 HTTP/1.1" 200 42429
+[26/Nov/2019 05:30:39] "GET /api/v1/information/company_code/?com_name_cotain=%EA%B3%84%EC%A7%84%ED%91%B8%EB%93%9C HTTP/1.1" 200 41241
+[26/Nov/2019 05:30:48] "GET /api/v1/information/company_code/?com_name_cotain=%EA%B8%80%EB%A1%9C%EB%B2%8C%EB%8D%94%EC%9B%90%EC%BD%94%EB%A6%AC%EC%95%84 HTTP/1.1" 200 42033
+[26/Nov/2019 05:30:55] "GET /api/v1/information/company_code/?com_name_cotain=%EB%94%94%EC%95%A4%EC%94%A8%EC%BC%80%EC%8A%A4%ED%85%8C%ED%81%AC HTTP/1.1" 200 41835
+[26/Nov/2019 05:31:05] "GET /api/v1/information/company_code/?com_name_cotain=%EB%A6%AC%ED%8D%BC%EB%B8%94%EB%A6%AC%EC%B9%B4 HTTP/1.1" 200 41439
+[26/Nov/2019 05:31:13] "GET /api/v1/information/company_code/?com_name_co%E3%85%9Ctain=%EB%A6%AC%ED%8D%BC%EB%B8%94%EB%A6%AC%EC%B9%B4 HTTP/1.1" 200 41637
+[26/Nov/2019 05:34:42] "GET /api/v1/information/company_code/?com_name_contain=%EB%94%94%EC%95%A4%EC%94%A8%EC%BC%80%EC%8A%A4%ED%85%8C%ED%81%AC HTTP/1.1" 200 9434
+[26/Nov/2019 05:34:51] "GET /api/v1/information/company_code/?com_name_contain=%EA%B3%84%EC%A7%84%ED%91%B8%EB%93%9C%EB%86%8D%EC%97%85%ED%9A%8C%EC%82%AC%EB%B2%95%EC%9D%B8 HTTP/1.1" 200 9521
+[26/Nov/2019 05:34:54] "GET /api/v1/information/company_code/?com_name_contain=%EA%B3%84%EC%A7%84%ED%91%B8%EB%93%9C HTTP/1.1" 200 9020
+[26/Nov/2019 05:35:09] "GET /api/v1/information/company_code/?com_name_contain=%EB%8F%88%EC%9D%B4%EC%9B%94%EB%93%9C HTTP/1.1" 200 8711
+[26/Nov/2019 05:35:16] "GET /api/v1/information/company_code/?com_name_contain=%EC%9D%B4%EC%95%A4%EC%A7%80%ED%91%B8%EB%93%9C HTTP/1.1" 200 9770
+[26/Nov/2019 05:35:31] "GET /api/v1/information/em02/?com_name_contain=%EC%9D%B4%EC%95%A4%EC%A7%80%ED%91%B8%EB%93%9C HTTP/1.1" 200 16068
+[26/Nov/2019 05:36:23] "GET /api/v1/information/em02/?com_name_contain=%EB%B9%84%EC%97%A0%EA%B8%80%EB%A1%9C%EB%B2%8C HTTP/1.1" 200 29783
+[26/Nov/2019 05:36:59] "GET /api/v1/information/em01/?com_name_contain=%EC%9D%B4%EC%95%A4%EC%A7%80%ED%91%B8%EB%93%9C HTTP/1.1" 200 21920
+[26/Nov/2019 05:37:35] "GET /api/v1/information/em01/?com_name_contain=%EA%B3%84%EC%A7%84%ED%91%B8%EB%93%9C HTTP/1.1" 200 18405
+[26/Nov/2019 05:37:45] "GET /api/v1/information/em01/?com_name_contain=%EA%B8%80%EB%A1%9C%EB%B2%8C%EB%8D%94%EC%9B%90%EC%BD%94%EB%A6%AC%EC%95%84 HTTP/1.1" 200 20516
+[26/Nov/2019 05:37:55] "GET /api/v1/information/em01/?com_name_contain=%EA%B8%88%EC%82%B0%EC%B6%95%EC%82%B0 HTTP/1.1" 200 16867
+[26/Nov/2019 05:38:01] "GET /api/v1/information/em01/?com_name_contain=%EB%8F%88%EC%9D%B4%EC%9B%94%EB%93%9C HTTP/1.1" 200 16867
+[26/Nov/2019 05:38:07] "GET /api/v1/information/em01/?com_name_contain=%EC%9D%B4%EC%95%A4%EC%A7%80%ED%91%B8%EB%93%9C HTTP/1.1" 200 21920
+[26/Nov/2019 05:38:22] "GET /api/v1/information/em01/?com_name_contain=%EC%B0%B8%EC%8B%9D%ED%92%88 HTTP/1.1" 200 37124
+[26/Nov/2019 05:38:58] "GET /api/v1/information/em01/?com_name_contain=%EC%B0%B8%EC%8B%9D%ED%92%88&ceo=%EC%9E%A5%ED%95%99%EC%A4%80 HTTP/1.1" 200 39104
+[26/Nov/2019 07:52:18] "GET /api/v1/information/em01/ HTTP/1.1" 200 169372
+Not Found: /favicon.ico
+[26/Nov/2019 07:52:19] "GET /favicon.ico HTTP/1.1" 404 2095
+[26/Nov/2019 07:52:30] "GET /api/v1/information/em01/?com_name_contain=%ED%93%A8%EC%B2%98%ED%94%8C%EB%A0%88%EC%9D%B4 HTTP/1.1" 200 18924
+[26/Nov/2019 07:52:43] "GET /api/v1/information/ab01/J07419/ HTTP/1.1" 200 67607
+[26/Nov/2019 07:53:11] "GET /api/v1/information/ab01/J07419/?start_date=20180101 HTTP/1.1" 200 67879
+[26/Nov/2019 07:53:15] "GET /api/v1/information/ab01/J07419/?page=2&start_date=20180101 HTTP/1.1" 200 39024
+[26/Nov/2019 07:53:29] "GET /api/v1/information/ab01/J07419/?page=2&start_date=20180101&end_date=20190101 HTTP/1.1" 200 39684
+[26/Nov/2019 07:53:43] "GET /api/v1/information/ab01/J07419/?end_date=20190101&start_date=20180101 HTTP/1.1" 200 68539
+[26/Nov/2019 07:54:00] "GET /api/v1/information/ab01/J07419/?start_date=20180101&end_date=20190101 HTTP/1.1" 200 68539
+[26/Nov/2019 07:54:03] "GET /api/v1/information/ab01/J07419/?end_date=20190101&page=2&start_date=20180101 HTTP/1.1" 200 39684
+[26/Nov/2019 07:54:14] "GET /api/v1/information/ab01/J07419/ HTTP/1.1" 200 67607
+[26/Nov/2019 07:54:24] "GET /api/v1/information/ab01/J07419/?start_date=20180101 HTTP/1.1" 200 67879
+[26/Nov/2019 07:54:28] "GET /api/v1/information/ad01/J07419/?start_date=20180101 HTTP/1.1" 200 9851
+[26/Nov/2019 07:54:40] "GET /api/v1/information/ad01/J07419/?start_date=20180101 HTTP/1.1" 200 9851
+[26/Nov/2019 07:54:45] "GET /api/v1/information/ab01/J07419/?start_date=20180101 HTTP/1.1" 200 67879
+[26/Nov/2019 07:55:46] "GET /api/v1/information/ab01/J07419/?start_date=20180101 HTTP/1.1" 200 21891
+[26/Nov/2019 07:57:13] "GET /api/v1/information/company_code/ HTTP/1.1" 200 12089
+[26/Nov/2019 08:01:22] "GET /api/v1/information/ab09 HTTP/1.1" 301 0
+/home/ubuntu/.local/lib/python3.6/site-packages/rest_framework/pagination.py:200: UnorderedObjectListWarning: Pagination may yield inconsistent results with an unordered object_list: <class 'information.models.AB09'> QuerySet.
+  paginator = self.django_paginator_class(queryset, page_size)
+[26/Nov/2019 08:01:23] "GET /api/v1/information/ab09/ HTTP/1.1" 200 117673
+[26/Nov/2019 08:02:49] "GET /api/v1/information/ab09/?page=409 HTTP/1.1" 200 86850
+[26/Nov/2019 08:02:52] "GET /api/v1/information/ab09/?page=408 HTTP/1.1" 200 120099
+[26/Nov/2019 08:02:53] "GET /api/v1/information/ab09/?page=407 HTTP/1.1" 200 120645
+[26/Nov/2019 08:02:55] "GET /api/v1/information/ab09/?page=406 HTTP/1.1" 200 120999
+[26/Nov/2019 08:02:57] "GET /api/v1/information/ab09/ HTTP/1.1" 200 117673
+[26/Nov/2019 08:03:53] "GET /api/v1/information/ab01/J07419/?start_date=20180101 HTTP/1.1" 200 21891
+[26/Nov/2019 08:06:01] "GET /api/v1/information/ab01/J07419/?start_date=20180101 HTTP/1.1" 200 21891
+[26/Nov/2019 08:07:27] "GET /api/v1/information/ab01/J07419/?start_date=20180101 HTTP/1.1" 200 67879
+[26/Nov/2019 08:07:30] "GET /api/v1/information/ab01/J07419/?page=2&start_date=20180101 HTTP/1.1" 200 39024
+[26/Nov/2019 08:07:32] "GET /api/v1/information/ab01/J07419/?start_date=20180101 HTTP/1.1" 200 67879
+[26/Nov/2019 08:07:47] "GET /api/v1/information/ab01/J07419/?page=2&start_date=20180101 HTTP/1.1" 200 39024
+[26/Nov/2019 08:07:47] "GET /api/v1/information/ab01/J07419/?page=2&start_date=20180101 HTTP/1.1" 200 39024
+[26/Nov/2019 08:07:47] "GET /api/v1/information/ab01/J07419/?page=2&start_date=20180101 HTTP/1.1" 200 39024
+[26/Nov/2019 08:10:59] "GET /api/v1/information/ab01/J07419/?start_date=20180101 HTTP/1.1" 200 21891
+[26/Nov/2019 08:11:30] "GET /api/v1/information/ab01/J07419/?page=1&start_date=20180101 HTTP/1.1" 200 21891
+[26/Nov/2019 08:12:50] "GET /api/v1/information/ab01/J07419/?page=1&start_date=20180101 HTTP/1.1" 200 21891
+[26/Nov/2019 08:12:51] "GET /api/v1/information/ab01/J07419/?page=2&start_date=20180101 HTTP/1.1" 200 10739
+Not Found: /api/v1/information/ab01/J07419/
+[26/Nov/2019 08:12:52] "GET /api/v1/information/ab01/J07419/?page=3&start_date=20180101 HTTP/1.1" 404 26
+[26/Nov/2019 08:13:07] "GET /api/v1/information/ab01/J07419/?page=2&start_date=20180101 HTTP/1.1" 200 10739
+[26/Nov/2019 08:13:31] "GET /api/v1/information/ab01/J07419/?page=2&start_date=20180101 HTTP/1.1" 200 10739
+[26/Nov/2019 08:13:57] "GET /api/v1/information/ab01/J07419/?page=2&start_date=20180101 HTTP/1.1" 200 10739
+[26/Nov/2019 08:14:37] "GET /api/v1/information/ab01/J07419/?page=2&start_date=20180101 HTTP/1.1" 200 10739
+[26/Nov/2019 08:15:22] "GET /api/v1/information/ab01/J07419/?page=2&start_date=20180101 HTTP/1.1" 200 10739
+[26/Nov/2019 08:16:10] code 400, message Bad request version ('À\x14À')
+[26/Nov/2019 08:16:10] You're accessing the development server over HTTPS, but it only supports HTTP.
+
+[26/Nov/2019 08:16:21] "GET /api/v1/information/ab01/J07419/?page=1&start_date=20180101 HTTP/1.1" 200 21891
+[26/Nov/2019 08:16:22] "GET /api/v1/information/ab01/J07419/?page=2&start_date=20180101 HTTP/1.1" 200 10739
+[26/Nov/2019 08:17:44] "GET /api/v1/information/ab01/J07419/?page=1&start_date=20180101 HTTP/1.1" 200 21891
+[26/Nov/2019 08:17:46] "GET /api/v1/information/ab01/J07419/?page=2&start_date=20180101 HTTP/1.1" 200 10739
+[26/Nov/2019 08:18:17] "GET /api/v1/information/ab01/J07419/?page=1&start_date=20180101 HTTP/1.1" 200 21891
+[26/Nov/2019 08:18:18] "GET /api/v1/information/ab01/J07419/?page=2&start_date=20180101 HTTP/1.1" 200 10739
+[26/Nov/2019 08:18:30] "GET /api/v1/information/ab01/J07419/?start_date=20180101 HTTP/1.1" 200 67879
+[26/Nov/2019 08:19:03] "GET /api/v1/information/ab01/J07419/?page=1&start_date=20180101 HTTP/1.1" 200 21891
+[26/Nov/2019 08:19:04] "GET /api/v1/information/ab01/J07419/?page=2&start_date=20180101 HTTP/1.1" 200 10739
+[26/Nov/2019 08:20:07] "GET /api/v1/information/ab01/J07419/?page=1&start_date=20180101 HTTP/1.1" 200 21891
+[26/Nov/2019 08:20:09] "GET /api/v1/information/ab01/J07419/?page=2&start_date=20180101 HTTP/1.1" 200 10739
+[26/Nov/2019 08:20:43] "GET /api/v1/information/ab09/ HTTP/1.1" 200 117673
+[26/Nov/2019 08:20:48] "GET /api/v1/information/ab09/?rep_code=11 HTTP/1.1" 200 118582
+[26/Nov/2019 08:20:57] "GET /api/v1/information/ab09/?rep_code=11&item_code=0000 HTTP/1.1" 200 15747
+[26/Nov/2019 08:21:21] "GET /api/v1/information/ab09/?rep_code=11&item_code=0001 HTTP/1.1" 200 13700
+[26/Nov/2019 08:21:27] "GET /api/v1/information/ab09/?rep_code=11 HTTP/1.1" 200 118582
+[26/Nov/2019 08:21:30] "GET /api/v1/information/ab09/?rep_code=28 HTTP/1.1" 200 117806
+[26/Nov/2019 08:21:57] "GET /api/v1/information/ab01/J07419/?page=1&start_date=20180101 HTTP/1.1" 200 21891
+[26/Nov/2019 08:21:57] "GET /api/v1/information/ab01/J07419/?page=2&start_date=20180101 HTTP/1.1" 200 10739
+[26/Nov/2019 13:39:55] "GET /api/v1/information/company_code/ HTTP/1.1" 200 40003
+Not Found: /favicon.ico
+[26/Nov/2019 13:39:55] "GET /favicon.ico HTTP/1.1" 404 2095
+[26/Nov/2019 13:39:59] "GET /api/v1/information/ab09/ HTTP/1.1" 200 117673
+[26/Nov/2019 13:40:55] "GET /api/v1/information/ab09/?rep_code=17&item_code=1810 HTTP/1.1" 200 1020
+[26/Nov/2019 13:41:05] "GET /api/v1/information/ab09/?rep_code=17&item_code=1810 HTTP/1.1" 200 1020

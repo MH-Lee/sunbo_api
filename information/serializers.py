@@ -64,13 +64,17 @@ class AB01Serializer(serializers.ModelSerializer):
     # com_code = serializers.StringRelatedField()
     com_name = serializers.SerializerMethodField('get_com_name')
     rep_name = serializers.CharField(source='get_rep_code_display')
-
+    rep_key = serializers.SerializerMethodField('get_rep_key')
+    
     class Meta:
         model = AB01
         fields = '__all__'
 
     def get_com_name(self, obj):
         return obj.com_code.com_name
+    
+    def get_rep_key(self, obj):
+        return "{}{}".format(obj.rep_code, obj.item_code)
 
 
 class AB09Serializer(serializers.ModelSerializer):

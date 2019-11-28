@@ -72,6 +72,7 @@ class EM01APIView(generics.ListAPIView):
         issue_by = self.request.GET.get('issues_admin')
         ext_audit_by = self.request.GET.get('ext_audit')
         com_exist_by = self.request.GET.get('com_exist')
+        ceo_name_by = self.request.GET.get('ceo_name')
         fin_div_by = self.request.GET.get('fin_div')
         closure_status_by = self.request.GET.get('closure_status')
         if com_code_by:
@@ -92,6 +93,8 @@ class EM01APIView(generics.ListAPIView):
             queryset = queryset.filter(ext_audit=ext_audit_by)
         if com_exist_by:
             queryset = queryset.filter(com_exist=com_exist_by)
+        if ceo_name_by:
+            queryset = queryset.filter(com_exist=ceo_name_by)
         if fin_div_by:
             queryset = queryset.filter(fin_div=fin_div_by)
         if closure_status_by:

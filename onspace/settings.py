@@ -42,8 +42,8 @@ TESTING = False
 PRODUCTION = True
 
 ALLOWED_HOSTS = [
-    '54.91.115.49',
-    'ec2-54-91-115-49.compute-1.amazonaws.com',
+    '3.85.164.59',
+    'ec2-3-85-164-59.compute-1.amazonaws.com',
     '127.0.0.1',
     'localhost'
 ]

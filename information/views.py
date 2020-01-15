@@ -223,6 +223,7 @@ class AA22APIView(generics.ListAPIView):
         com_name_c_by = self.request.GET.get('com_name_contain')
         settlement_by = self.request.GET.get('settlement')
         serial_no_by = self.request.GET.get('serial_no')
+        bd_date_by = self.request.GET.get('date_birth')
         condition = [date_by, com_code_by, com_name_by, com_name_c_by, settlement_by, serial_no_by]
         if any(condition):
             queryset = AA22.objects.all().order_by('-id')
@@ -238,6 +239,8 @@ class AA22APIView(generics.ListAPIView):
                 queryset = queryset.filter(com_code__com_name=com_name_by)
             if com_name_c_by:
                 queryset = queryset.filter(com_code__com_name__icontains=com_name_c_by) 
+            if bd_date_by:
+                queryset = queryset.filter(date__gte=bd_date_by)
             if settlement_by:
                 queryset = queryset.filter(settlement=settlement_by)
             if serial_no_by:

@@ -89,6 +89,8 @@ class EM01APIView(generics.ListAPIView):
             queryset = queryset.filter(com_status=com_status_by)
         if issue_by:
             queryset = queryset.filter(issues_admin=issue_by)
+        if ceo_name_by:
+            queryset = queryset.filter(ceo_name__icontains=ceo_name_by)
         if ext_audit_by:
             queryset = queryset.filter(ext_audit=ext_audit_by)
         if com_exist_by:
@@ -407,6 +409,7 @@ class AD01APIView(generics.ListAPIView):
                 queryset = queryset.filter(rep_code=rep_code_by)
             if item_code_by:
                 queryset = queryset.filter(item_code=item_code_by)
+
         return queryset
 
 
@@ -424,8 +427,9 @@ class AD01DetailAPIView(generics.ListAPIView):
         end_date_by = self.request.GET.get('end_date')
         settlement_by = self.request.GET.get('settlement')
         rep_code_by = self.request.GET.get('rep_code')
+        rep_key_by = self.request.GET.get('rep_key')
         item_code_by = self.request.GET.get('item_code')
-        condition = [date_by, start_date_by, end_date_by, settlement_by, rep_code_by, item_code_by]
+        condition = [date_by, start_date_by, end_date_by, settlement_by, rep_code_by, item_code_by, rep_key_by]
         if any(condition):
             if date_by:
                 queryset = queryset.filter(date=date_by)
@@ -439,6 +443,8 @@ class AD01DetailAPIView(generics.ListAPIView):
                 queryset = queryset.filter(rep_code=rep_code_by)
             if item_code_by:
                 queryset = queryset.filter(item_code=item_code_by)
+            if rep_key_by:
+                queryset = queryset.filter(rep_code=rep_key_by[0:2]).filter(item_code=rep_key_by[2:])
         return queryset
 
 

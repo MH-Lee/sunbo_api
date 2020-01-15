@@ -245,7 +245,9 @@ class AA22APIView(generics.ListAPIView):
             if settlement_by:
                 queryset = queryset.filter(settlement=settlement_by)
             if serial_no_by:
-                queryset = queryset.filter(date=date_by)
+                queryset = queryset.filter(serial_no=date_by)
+            if position_by:
+                queryset = queryset.filter(position=position_by)
         return queryset
 
 
@@ -268,7 +270,7 @@ class AA22DetailAPIView(generics.ListAPIView):
             if settlement_by:
                 queryset = queryset.filter(settlement=settlement_by)
             if serial_no_by:
-                queryset = queryset.filter(date=date_by)
+                queryset = queryset.filter(serial_no=serial_no_by)
         return queryset
 
 class AB01APIView(generics.ListAPIView):

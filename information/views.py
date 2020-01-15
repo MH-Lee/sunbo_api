@@ -224,6 +224,7 @@ class AA22APIView(generics.ListAPIView):
         settlement_by = self.request.GET.get('settlement')
         serial_no_by = self.request.GET.get('serial_no')
         bd_date_by = self.request.GET.get('date_birth')
+        position_by = self.request.GET.get('position')
         condition = [date_by, com_code_by, com_name_by, com_name_c_by, settlement_by, serial_no_by]
         if any(condition):
             queryset = AA22.objects.all().order_by('-id')

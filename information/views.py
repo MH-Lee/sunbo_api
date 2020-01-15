@@ -74,6 +74,7 @@ class EM01APIView(generics.ListAPIView):
         com_exist_by = self.request.GET.get('com_exist')
         ceo_name_by = self.request.GET.get('ceo_name')
         fin_div_by = self.request.GET.get('fin_div')
+        mkt_by = self.request.GET.get('market_code')
         closure_status_by = self.request.GET.get('closure_status')
         if com_code_by:
             queryset = queryset.filter(com_code=com_code_by)
@@ -101,6 +102,8 @@ class EM01APIView(generics.ListAPIView):
             queryset = queryset.filter(fin_div=fin_div_by)
         if closure_status_by:
             queryset = queryset.filter(closure_status=closure_status_by)
+        if mkt_by:
+            queryset = queryset.filter(com_code__market_code=mkt_by)
         return queryset
 
 
@@ -224,8 +227,10 @@ class AA22APIView(generics.ListAPIView):
         settlement_by = self.request.GET.get('settlement')
         serial_no_by = self.request.GET.get('serial_no')
         bd_date_by = self.request.GET.get('date_birth')
+        com_size_by = self.request.GET.get('com_size')
         position_by = self.request.GET.get('position')
-        condition = [date_by, com_code_by, com_name_by, com_name_c_by, settlement_by, serial_no_by, bd_date_by, position_by] 
+        condition = [date_by, com_code_by, com_name_by, com_name_c_by, com_size_by,\
+                     settlement_by, serial_no_by, bd_date_by, position_by] 
         if any(condition):
             queryset = AA22.objects.all().order_by('-id')
             if date_by:
@@ -248,6 +253,8 @@ class AA22APIView(generics.ListAPIView):
                 queryset = queryset.filter(serial_no=date_by)
             if position_by:
                 queryset = queryset.filter(position=position_by)
+            if com_size_by:
+                queryset = queryset.filter(com_code__com_size=com_size_by)
         return queryset
 
 

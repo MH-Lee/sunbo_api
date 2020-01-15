@@ -42,8 +42,8 @@ class EM02Serializer(serializers.ModelSerializer):
 
 class AA22Serializer(serializers.ModelSerializer):
     com_name = serializers.SerializerMethodField('get_com_name')
-    come_size = serializers.SerializerMethodField('get_come_size')
-    
+    com_size = serializers.SerializerMethodField('get_com_size')
+
     class Meta:
         model = AA22
         fields = '__all__'
@@ -51,8 +51,8 @@ class AA22Serializer(serializers.ModelSerializer):
     def get_com_name(self, obj):
         return obj.com_code.com_name
 
-    def get_come_size(self, obj):
-        return obj.com_code.come_size
+    def get_com_size(self, obj):
+        return obj.com_code.com_size
 
 
 class AA06Serializer(serializers.ModelSerializer):

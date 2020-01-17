@@ -223,12 +223,13 @@ class AA22APIView(generics.ListAPIView):
         end_date_by = self.request.GET.get('end_date')
         com_code_by = self.request.GET.get('com_code')
         com_name_by = self.request.GET.get('com_name')
+        name_by = self.request.GET.get('name')
         com_name_c_by = self.request.GET.get('com_name_contain')
         settlement_by = self.request.GET.get('settlement')
         serial_no_by = self.request.GET.get('serial_no')
         bd_date_by = self.request.GET.get('date_birth')
         position_by = self.request.GET.get('position')
-        condition = [date_by, com_code_by, com_name_by, com_name_c_by,\
+        condition = [date_by, com_code_by, com_name_by, com_name_c_by, name_by,\
                      settlement_by, serial_no_by, bd_date_by, position_by] 
         if any(condition):
             queryset = AA22.objects.all().order_by('-id')
@@ -252,6 +253,8 @@ class AA22APIView(generics.ListAPIView):
                 queryset = queryset.filter(serial_no=date_by)
             if position_by:
                 queryset = queryset.filter(position=position_by)
+            if name_by:
+                queryset = queryset.filter(name=name_by)
         return queryset
 
 

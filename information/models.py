@@ -109,7 +109,7 @@ class AA06(models.Model):
     relation_com = models.CharField(max_length=30, blank=True, null=True, verbose_name='회사와관계')
 
     def __str__(self):
-        return 'date: {} company_code: {} name: : {} relationship: {}'.format(self.date, self.com_code, self.shareholder_name, self.position)
+        return 'date: {} company_code: {} name: : {} relationship: {}'.format(self.date, self.com_code, self.shareholder_name, self.relation_owner)
 
     class Meta:
         db_table = 'aa06'

@@ -51,7 +51,6 @@ class AA22Serializer(serializers.ModelSerializer):
         return obj.com_code.com_name
 
 
-
 class AA06Serializer(serializers.ModelSerializer):
     com_name = serializers.SerializerMethodField('get_com_name')
 

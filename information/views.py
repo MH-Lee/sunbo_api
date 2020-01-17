@@ -252,7 +252,7 @@ class AA22APIView(generics.ListAPIView):
             if serial_no_by:
                 queryset = queryset.filter(serial_no=date_by)
             if position_by:
-                queryset = queryset.filter(position=position_by)
+                queryset = queryset.filter(position__icontains=position_by)
             if name_by:
                 queryset = queryset.filter(name=name_by)
         return queryset

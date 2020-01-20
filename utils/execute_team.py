@@ -28,12 +28,12 @@ print('aa22 setting')
 start_time = time.time()
 valid_df = pd.read_csv('./utils/data/fif_billion_df.csv', encoding='cp949')
 com_code_list = valid_df['com_code'].tolist()
-aa22_valid = AA22.objects.filter(date_birth__lte=19600101).filter(position='대표이사').filter(com_code__in = com_code_list)
-list_aa22 = aa22_valid.values('com_code','date', 'name', 'date_birth')
+aa22_valid = AA22.objects.filter(date_birth__lte=19600101).filter(position__icontains='대표이사').filter(com_code__in = com_code_list)
+list_aa22 = aa22_valid.values('com_code','date', 'name', 'date_birth', 'position')
 aa22_df = pd.DataFrame(list_aa22)
-aa22_colnames = ['회사코드', '취임날짜', '이름', '생일']
+aa22_colnames = ['회사코드', '취임날짜', '이름', '생일', '직책']
 aa22_df.columns = aa22_colnames
-aa22_df.sort_values(['회사코드', '취임날짜'], ascending=[True, False], inplace=True)
+aa22_df.sort_values(['회사코드', '취임날짜', '생일'], ascending=[True, False, False], inplace=True)
 aa22_df = aa22_df[aa22_df['생일']!='']
 aa22_df = aa22_df[aa22_df['생일']!='19000000']
 aa22_df.drop_duplicates(subset=['회사코드'], keep='first', inplace=True) 
@@ -125,21 +125,29 @@ end_time = time.time()
 print(end_time - start_time)
 
 stockholder_list = AA06.objects.filter(com_code__in = final_code)
-list_aa06 = list(stockholder_list.values('date', 'com_code', 'shareholder_name','relation_owner','rate_of_share'))
+list_aa06 = list(stockholder_list.values('date', 'com_code', 'stock_type', 'settlement', 'shareholder_name','relation_owner','rate_of_share'))
 aa06_df = pd.DataFrame(list_aa06)
-aa06_df.columns = ['취득날짜', '회사코드', '주주이름', '주주와의 관계', '지분비율']
-aa06_df.sort_values(['회사코드', '취득날짜'], ascending=[True, False], inplace=True)
+aa06_df.columns = ['date', '회사코드', '주식구분', '결산구분', '주주이름', '주주와의 관계', '지분비율']
+stock_type = {'1':'보통주', '2':'우선주', '3':'합계', '4':'기타주식'}
+settlement_type = {'1':'결산', '2':'반기', '3':'기타', '4':'1/4분기', '5':'3/4분기'}
+aa06_df['주식구분'] = aa06_df['주식구분'].map(stock_type)
+aa06_df['결산구분'] = aa06_df['결산구분'].map(settlement_type)
+aa06_df.sort_values(['회사코드', 'date'], ascending=[True, False], inplace=True)
 aa06_df.drop_duplicates(subset=['회사코드', '주주이름'], inplace=True, keep='first')
-aa06_df.reset_index(drop=True, inplace=True)
+aa06_df.to_csv('./utils/execute_search/aa06_df.csv', encoding='cp949', index=False)
 
 print('data generate3')
 start_time = time.time()
 total_df['주요주주'] = None
 for com_code in final_code:
-	print(com_code)
-	tmp_df = aa06_df[aa06_df['회사코드'] == com_code]
-	sh_list = [tuple(x) for x in tmp_df[['취득날짜', '주주이름', '주주와의 관계', '지분비율']].values]
-	total_df.loc[total_df['회사코드']==com_code, '주주구성'] = str(sh_list)
+	try:
+		recent_date = aa06_df[aa06_df['회사코드'] == com_code].head(1).date.values[0]
+		tmp_df = aa06_df.loc[(aa06_df['회사코드'] == com_code) & (aa06_df['date'] == recent_date)]
+		sh_list = [tuple(x) for x in tmp_df[['date', '주주이름', '주식구분', '결산구분', '주주와의 관계', '지분비율']].values]
+		total_df.loc[total_df['회사코드']==com_code, '주주구성'] = str(sh_list)
+	except:
+		print(com_code)
+		continue
 
 end_time = time.time()
 print(end_time - start_time)
